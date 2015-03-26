@@ -1,0 +1,101 @@
+
+    <div class="row marketing">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4> HSFFT : 1D FFT and Convolution Implementation In C/C++</h4>
+                    </div>
+                    <div class="panel-body">
+                            <p>A simple, straightforward FFT Implementation in C/C++. It 
+                            is designed to give good performance for non-power of length 2
+                            FFTs. Only 1D , unit-stride implementation for singe core processors
+                            available as of now. </p>
+                            <p>USAGE</p>
+                        <p>HSFFT is designed specifically to handle time series data efficiently. 
+                            The software is structured very similarly to available open source softwares 
+                            like FFTW and kissfft. The data structure is almost identical to Mark 
+                            Borgerding's kissfft implementaion. However, this implementation is lightweight
+                             compared to FFTW and should give better performance for non-power of two 
+                            implementations compared to kissfft in a single core setting. The project is a 
+                            work in progress and the To-Do list is considerably long, including an implementation 
+                            with multicore/multithread support, real FFT support, multi-stride and multi-dimensional FFTs. </p>
+                        <p>Algorithm - HSFFT computes Out of Place FFT using a recursive FFT routine which is "semi-optimized"
+                             for radix 2,3,4,5,7,8. As of now , general radices upto length 53 are supported using a generic 
+                            module and a routine directly based on Paul N. Swarztrauber's Bluestein algorithm is utilized for
+                             other general lengths. </p>
+                        <p>Note - Visual Studio uses archaic C Compiler. If you are using VC or an older version of C 
+                            compiler (C89 compliant only) then use the hsfft.c/hsfft.h files from the C89 folder instead 
+                            of files from the main folder. Other files (real.c and conv.c) should work for all compilers</p>
+                    </div>
+                 </div>
+            </div>
+    </div>
+
+ <div class="row marketing">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="#/sites/ctsa/front" class="btn btn-primary disabled">Language</a>
+                        <a href="#/sites/ctsa/front" class="btn btn-default disabled">C</a>
+                    </div>
+                 </div>
+            </div>
+     <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="#/sites/ctsa/front" class="btn btn-primary disabled">License</a>
+                        <a href="#/sites/ctsa/front" class="btn btn-default disabled">BSD</a>
+                    </div>
+                 </div>
+            </div>
+    </div>
+
+    <div class="row marketing">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4> Repositories</h4>
+                    </div>
+                    <div class="panel-body">
+                        <a href="https://github.com/rafat/hsfft" target="_blank" class="btn btn-primary">github</a>
+                        <a href="https://bitbucket.org/rafat/hsfft" target="_blank" class="btn btn-primary">bitbucket</a>
+                        <a href="https://code.google.com/p/hsfft/" target="_blank" class="btn btn-primary">google</a>
+                    </div>
+                 </div>
+            </div>
+    </div>
+
+<div class="row marketing">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4> Wiki</h4>
+                    </div>
+                    <div class="panel-body">
+                        <a href="https://github.com/rafat/hsfft/wiki" target="_blank" class="btn btn-primary">Wiki</a>
+                    </div>
+                 </div>
+            </div>
+    <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4> Downloads</h4>
+                    </div>
+                    <div class="panel-body">
+                        <a href="http://sourceforge.net/projects/hsfft/files/" target="_blank" class="btn btn-primary">Downloads</a>
+                    </div>
+                 </div>
+            </div>
+    <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4> Documentation</h4>
+                    </div>
+                    <div class="panel-body">
+                        <a href="https://github.com/rafat/hsfft/wiki" target="_blank" class="btn btn-primary">Documentation</a>
+                    </div>
+                 </div>
+            </div>
+    </div>
+
+
