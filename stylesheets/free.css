@@ -21,6 +21,13 @@ body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+.navbar-inverse .navbar-brand {
+    color: #c0dff5;
+}
+
+.nav.navbar-nav.navbar-right li a {
+    color: #c0dff5;
+}
 
 /* 404 Page Styles */
 
