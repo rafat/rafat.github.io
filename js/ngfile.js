@@ -51,6 +51,10 @@ app.config(function($routeProvider){
       templateUrl: '/sites/wavepy/front.html',
       controller: 'siteController'
     })
+    .when('/sites/cregres/front', {
+      templateUrl: '/sites/cregres/front.html',
+      controller: 'siteController'
+    })
 });
 
 app.controller('mainController', function(){
