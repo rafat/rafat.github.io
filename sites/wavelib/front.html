@@ -6,8 +6,9 @@
                         <h4> Wavelib: C Implementation of Discrete Wavelet Transform</h4>
                     </div>
                     <div class="panel-body">
-                            <p>An ANSI C implementation of decimated and undecimated 1D Fast Discrete Wavelet Transforms. </p>
-                            <p>Methods Implemented</p>
+                            <p>An ANSI C Implementation of Wavelet Transform (DWT,SWT and MODWT) and Packet Transform 
+                                ( Full Tree Decomposition and Best Basis DPWT). </p>
+                            <p>Discrete Wavelet Transform Methods Implemented </p>
                             <p>DWT/IDWT A decimated Discrete Wavelet Transform implementation using implicit signal extension
                               and up/downsampling so it is a fast implementation. A FFT based implementation is optional but
                                will not be usually needed. Both periodic and symmetric options are available. </p>
@@ -18,6 +19,11 @@
                               implemented for signals of any length but only orthogonal wavelets (Daubechies, Symlets and Coiflets)
                                can be deployed. This implementation is based on the method laid out in "Wavelet Methods For Wavelet
                                 Analysis" by Donald Percival and Andrew Walden. </p>
+                        <p>Discrete Wavelet Packet Transform Methods Implemented</p>
+                        <p>WTREE A Fully Decimated Wavelet Tree Decomposition. This is a highly redundant transform and retains all 
+                            coefficients at each node. This is not recommended for compression and denoising applications.</p>
+                        <p>DWPT/IDWPT Is a derivative of WTREE method which retains coefficients based on entropy methods. This 
+                            is a non-redundant transform and output length is of the same order as the input.</p>
 
                     </div>
                  </div>
