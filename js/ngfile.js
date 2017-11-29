@@ -11,6 +11,10 @@ app.config(function($routeProvider){
       templateUrl: 'contact.html',
       controller: 'mainController'
     })
+    .when('/citations', {
+      templateUrl: 'citations.html',
+      controller: 'mainController'
+    })
     .when('/about', {
       templateUrl: 'about.html',
       controller: 'mainController'
