@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Hilbert Space</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+      <div id="main">
+	      <h1> Hilbert Space</h1>
+	      <h3>Banach Space</h3>
+
+	      <p>Before we define Hilbert space, it is helpful to define normed linear spaces and Banach Spaces.</p>
+
+	      <p>A vector space \(X\) is called normed linear space if for each element \(x \in X \) there is a number \( \|x\| \) called norm such that following conditions are satisfied</p>
+	      <ul>
+		      <li>1. \( \|x\| \geq 0 \) with \( \|x\|=0\) if and only if \(x=0\)</li><br \>
+
+		      <li>2. \(\|cx\|=|c|\|x\|\) for a scalar \(c\)</li><br \>
+
+		      <li>3. \( \|x+y\| \leq \|x\|+\|y\| \)</li><br \>
+	      </ul>
+
+	      <p>Convergence and Completeness condition: Let \(X\) be a normed linear space</p>
+	      <ul>
+		      <li>1. A sequence of vectors \( {x_{n}}\) converges to \( x \in X\) if \(\lim_{n\rightarrow \infty} \|x-x_{n}\|=0\).
+		      Putting it in a different way, if \( \forall \epsilon \gt 0 \), \(\exists N \gt 0\),\( \forall n \geq N \), \( \|x-x_{n}\| \gt \epsilon\)</li><br \>
+
+		      <li>2. Cauchy Sequence: A vector sequence \( {x_{n}}\) is Cauchy if \(\lim_{m,n\rightarrow \infty} \|x_{m}-x_{n}\|=0\).
+		      Putting it in a different way, if \( \forall \epsilon \gt 0 \), \(\exists N \gt 0\),\( \forall m,n \geq N \), \( \|x_{m}-x_{n}\| \gt \epsilon\)</li><br \>
+
+		      <li>3. We say that \(X\) is complete if every Cauchy sequence in \(X\) is a convergent sequence. A complete normed linear space is called a BANACH SPACE.</li><br \>
+	      </ul>
+
+	      <h3>Hilbert Space</h3><p>
+	      A vector space \(H\) is called a Hilbert space if for each pair \((x,y)\) of elements in the space \(H\) there is a unique number called inner product, denoted by \( \lt x,y \gt \) ,subject to following three conditions</p>
+
+	      <ul>
+		      <li>1. Linearity : 
+\[
+\lt \alpha x + \beta y ,z \gt = \alpha \lt x,z \gt + \beta \lt y,z \gt
+\]
+where \(x,y,z \in H \) and \(\alpha, \beta \in C\)</li><br \>
+  
+<li>2. Conjugated linearity: \( \lt x,y \gt = \overline{\lt y,x \gt} \)</li><br \>
+
+<li>3. \((\lt x,x \gt) \gt 0\) for \( x \neq 0 \)</li><br \>
+</ul>
+
+<h4>Properties of Hilbert Space</h4>
+
+<ul>
+	<li>1. Norm:  For an element \(x \in H \) , the norm is given by
+ 
+ \[
+ \|x\|=\sqrt{\lt x,x \gt}
+ \]</li><br \>
+ 
+ <li>2. Cauchy-Schwartz Inequality holds for any elements \(x,y \in H\)
+ \[
+ |\lt x,y \gt| \leq \|x\|\|y\|
+ \]  </li><br \>
+
+ <li>3. Orthogonality: Vectors \(x\) and \(y\) are said to be orthogonal if \(\lt x,y \gt = 0\). Orthogonality is written as \(x \bot y \)
+
+
+Euclidean Pythagoran theorem holds in Hilbert Space
+
+\[
+x \bot y \Rightarrow \|x+y\|^{2}=\|x\|^{2}+\|y\|^{2}
+\]</li><br \>
+</ul>
+
+<h4>Operators on Hilbert Spaces</h4>
+<ul>
+	<li>Adjoint Operator: 
+
+A linear operator \(U^{*}:H_{2} \rightarrow H_{1}\) is said to be adjoint of the operator \(U:H_{1} \rightarrow H_{2}\) when
+
+\[
+\lt Ux,y \gt_{H_{2}}=\lt x,U^{*}y \gt_{H_{1}}
+\]
+for every \(x \in H_{1}\) and every \(y \in H_{2}\)</li><br \>
+<li>Self-Adjoint Operator: If \(U=U^{*}\) then \(U\) is called self-adjoint operator.</li><br \>
+<li>Unitary Operator: \( UU^{*} =U^{*}U=I\) </li><br \>
+</ul>
+	      
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <a href="bases.html">Bases and Frames</a><br \><hr>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      <a href="http://en.wikibooks.org/wiki/Functional_Analysis">Functional Analysis Wikibook</a>
+	      <br \><hr>
+	      <a href="http://en.wikipedia.org/wiki/Hilbert_space">Hilbert Space Wiki Page</a><hr>
+               <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      <a href="http://www.springer.com/birkhauser/mathematics/book/978-0-8176-4295-2">Ole Christensen::An introduction to frames and Riesz bases</a>
+	      <br \><hr>
+	      <a href="http://www.fourierandwavelets.org/">Goyal et al::Fourier and Wavelet Signal Processing</a>
+	      <br \><hr>
+	      <a href="http://people.math.gatech.edu/~heil/papers/">Christopher Heil::A Basis Theory primer</a><hr>
+
+
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>DL Demo</title> 
+	<link rel="stylesheet" type="text/css"
+	href="css1/style3.css">
+	<script src="js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+	</script> 
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+	<dt><a href="../index.html">Home</a></dt>
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="">Introduction</a></li> 
+		<li><a href="">Discrete Wavelet Transform</a></li> 
+		<li><a href="">Wavelets in Matlab</a></li> 
+		<li><a href="">Multi Resolution Analysis</a></li>
+		<li><a href="">Filter Banks and Wavelets</a></li> 	        	
+		<li><a href="">2-D Transform</a></li> 
+		<li><a href="">Image Processing</a></li> 
+		<li><a href="">Complex Wavelet Transform</a></li> 
+		<li><a href="">Lifting Method</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="">Hilbert Space</a></li> 
+		<li><a href="">Bases and Frames</a></li> 
+		<li><a href="">Fourier Theory</a></li> 
+		<li><a href="">Approximation Theory</a></li> 
+		<li><a href="">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="">Sampling Theory</a></li>
+		<li><a href="">Filters</a></li> 
+		<li><a href="">FilterBanks</a></li> 
+		<li><a href="">Iterated FilterBanks</a></li> 
+		<li><a href="">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="">Image Processing</a></li> 
+		<li><a href="">Communications</a></li> 
+		<li><a href="">Seismology</a></li> 
+		<li><a href="">BioMedical Engineering</a></li> 
+		<li><a href="">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="">Directional WT</a></li> 
+		<li><a href="">MultiWavelets</a></li> 
+		<li><a href="">Meshes</a></li> 
+		<li><a href="">Monogenic WT</a></li> 
+		<li><a href="">More</a></li> 
+         </ul>
+	 </dd>	 
+	 <dt><a href="/resources/">Resources</a></dt>
+	 <dd>
+	 <ul>
+		<li><a href="">Books</a></li> 
+		<li><a href="resources/software.html">Software</a></li> 
+		<li><a href="">Papers Database</a></li> 
+		<li><a href="">Links</a></li> 
+          </ul>
+          </dd>	  
+  </dl> 
+      <div id="main">
+          
+  
+      </div>
+      <div id="side">
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

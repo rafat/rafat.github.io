@@ -1,0 +1,55 @@
+/* 
+    Document   : style2
+    Created on : Aug 10, 2010, 8:10:21 AM
+    Author     : USER
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+html {
+    margin:0;
+    padding:0;
+}
+div.main {
+    font-family:  Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    margin-left: 10%;
+    width:80%;
+    line-height: 125%;
+    text-indent: 3em;
+
+}
+div.main1 {
+        float:left;
+	font-size:80%;
+        border: thin dotted black;
+        padding: 0 30% 4% 3%;
+        color:orange;
+        background:black;
+
+}
+
+ul.list{
+    list-style: none;
+    list-style:noindent;
+    border:thin solid black;
+    
+}
+div.block {
+    color:blue;
+    background-color:lightblue;
+    float: right;
+    width: 20%;
+    border:thick solid orange;
+    margin: 0 0 3% -22%;
+}
+div.block p {
+    font-size:11px;
+}
+
+

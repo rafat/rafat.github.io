@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Filter Banks and Wavelets</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+  <div id="main">
+	  <h1>Filterbanks and Wavelets</h1>
+	  <p>As mentioned in the previous chapter Discrete Wavelet Transform can be
+	  obtained by iterating over low pass filters of a given filter bank.</p>
+
+	
+	  <div align="center">  <img class="picture" src="../img/iterfb.png" />
+		  <br \><p>Iterated Analysis Filter Bank</p>
+	  </div>
+	  
+  
+		<div align="center">  <img class="picture" src="../img/iterfb2.png" />
+		  <br \><p>Iterated Synthesis Filter Bank</p>
+	  </div>
+	  
+ 
+	  <p> Let us consider one stage filtering and downsampling in the analysis filter bank. 
+   Downsampling is needed in order to get rid of redundancy as , say, a 1000 point
+   input sample results in two ~1000 point outputs after filtering. We downsample by
+   two in order to keep the signal samples at ~1000. Similarly at the synthesis bank,
+   we first upsample the wavelet coefficients by 2 before filtering. Filter have to be designed
+   appropriately in order to ensure that the signal reconstruction is perfect. Filter choices
+   also effect wavelet shape as will be demonstrated shortly.</p>
+   
+   <p>Recall the dilation and wavelet equations.</p>
+   
+   \[
+ \phi(t)=2\sum_{k} h(k)\phi(2t-k)
+ \]
+ 
+ \[
+ \psi(t)=2\sum_{k} g(k)\phi(2t-k)
+ \]
+ 
+   If we iterate over these equations then the iteration can be written as
+   
+ \[
+ \phi^{(i+1)}(t)=2\sum_{k} h(k)\phi^{(i)}(2t-k)
+ \]
+
+ <p>Keep in mind that both wavelet and dilation equations will end up getting
+    iterated over \(\phi(t)\) where \(\phi^{(0)}(t)\) is the box function \([1,1]\).
+    If the functions converge then we should be able to get wavelet and scaling functions
+    in few steps. In the example below Daubechies's db2 wavelet and scaling filters were
+    iterated to yield wavelets and scaling functions in five iterations.</p>
+
+    <img class="picture" src="../img/idisp0.png" width="100%" >
+    <p align="center"> Db2 4-tap Low Pass and High pass Filters</p></img>
+
+    <img class="picture" src="../img/idisp1.png" width="100%" >
+    <p align="center"> Scaling and Wavelet Function Iteration #1</p></img>
+
+    <img class="picture" src="../img/idisp2.png" width="100%" >
+    <p align="center">Scaling and Wavelet Function Iteration #2</p></img>
+
+    <img class="picture" src="../img/idisp3.png" width="100%" >
+    <p align="center"> Scaling and Wavelet Function Iteration #3</p></img>
+		 
+    <img class="picture" src="../img/idisp4.png" width="100%" >
+    <p align="center">Scaling and Wavelet Function Iteration  #4</p></img>
+
+    <img class="picture" src="../img/idisp5.png" width="100%" >
+    <p align="center">Scaling and Wavelet Function Iteration #5</p></img>
+
+    <h3>Orthonormal Discrete Wavelet Transform</h3>
+    
+    <p>In terms of scaling and wavelet functions we have three orthonormality equations
+    at a given scale \(j\)</p>
+    
+    \[
+    <\phi_{j,k},\phi_{j,l}>= \int_{-\infty}^{\infty} 2^\frac{j}{2} \phi(2^{j}t-k)2^\frac{j}{2} \phi^{*}(2^{j}t-l)dt=\delta(k-l)
+    \]
+    
+    \[
+    <\psi_{j,k},\psi_{j,l}>= \int_{-\infty}^{\infty} 2^\frac{j}{2} \psi(2^{j}t-k)2^\frac{j}{2} \psi^{*}(2^{j}t-l)dt=\delta(k-l)
+    \]
+    
+    \[
+    <\phi_{j,k},\psi_{j,l}>= \int_{-\infty}^{\infty} 2^\frac{j}{2} \phi(2^{j}t-k)2^\frac{j}{2} \psi^{*}(2^{j}t-l)dt=0
+    \]
+    
+    <p>Derivation is straightforward. If \(h_{1}\) and \(g_{1}\) are low pass and high pass filters respectively then,
+    in an orthonormal filter bank, their inner product is zero. Use dilation equations, take inner product of scaling
+    and wavelet functions. Notice that it can be expressed in forms of  \(h_{1}\) and \(g_{1}\) and that these two
+    are orthonormal filters satisfying orthonormality properties.</p>
+
+    <p>Discrete Wavelet Transform requires that four filters be designed- two for analysis bank and the other two for
+    synthesis bank. However, perfect reconstruction imposes conditions on filters such that no more than two filters
+    are enough to design a DWT Multiresolution Analysis. In case of Orthogonal DWT, only one filter is sufficient as the 
+    other three filters can be obtained from the prototypical low pass filter. More on this will follow after discussion
+    of Biorthogonal wavelets.The analysis high pass filter is the mirror image (alternate flip) of low pass filter while
+    synthesis filters are transposes of analysis filters.For a given \(N+1\)-tap low pass analysis filter \(H_{1}(z)\),
+    the other three filters are </p>
+  
+    <p> High Pass Analysis Filter \(H_{2}(z) = -z^{-N}H_{1}(z)\)
+  
+  
+  Low Pass Synthesis Filter \(G_{1}(z) = H_{2}(-z)\)
+  
+  High pass Synthesis Filter \(G_{2}(z) = -H_{1}(-z)\)</p>
+
+  <h3>Biorthogonal Discrete Wavelet Transform</h3>
+  
+  <p>We get biorthogonal wavelets from biorthogonal filters. Biorthogonal analysis filters are not orthogonal to 
+  each other but the analysis filters and synthesis filters are orthogonal with respect to each other. Consider a
+  two-channel biorthogonal filter bank.</p>
+
+  <div align="center">  <img class="picture" src="../img/twochannel.png" />
+		  <br \><p>Two Channel Biorthogonal Filter Bank</p>
+	  </div>
+  
+
+    <p>In case of orthonormal filter banks we had three orthonormality equations. In case of biorthogonal filter banks,
+    we have four equations. In filter bank terms, these four equations are </p>
+  
+  \[
+  \lt h_{1}(n),h_{2}(2k-n) \gt=\delta(k)
+  \]
+  
+    \[
+  \lt g_{1}(n),g_{2}(2k-n) \gt=\delta(k)
+  \]
+  
+    \[
+  \lt h_{1}(n),g_{2}(2k-n) \gt=0
+  \]
+  
+    \[
+  \lt g_{1}(n),h_{2}(2k-n) \gt=0
+  \]
+  
+  <h4> Biorthogonal Multiresolution Analysis</h4>
+  
+  <p>In biorthogonal case, \(V_{j+1}=V_j\oplus W_j\) is still valid but \(V_j\) and \(W_j\) are not orthogonal
+  complements. This necessitates introduction of another complementary multiresolution space. It is usually 
+  denoted by \(\widetilde{V}_j\) and \(\widetilde{W}_j\) such that</p>
+  
+  \[
+  \widetilde{V}_{j+1} =\widetilde{V}_j +\widetilde{W}_j 
+  \]
+  
+  The relationship between ``normal'' MRA and ``Tilde'' MRA is crucial as it defines biorthogonality
+  
+  \[
+  \widetilde{V}_j \bot W_j
+  \]
+  
+  \[
+  V_j \bot \widetilde{W}_j
+  \]
+  
+  <p> ``Tilde'' MRA is usually associated with analysis filter bank while the ``normal'' MRA is associated with
+  synthesis filter bank. Therefore \(\widetilde{\phi}\) and \(\widetilde{\psi}\) are  analysis scaling and wavelet functions
+  while \(\phi\) and \(\psi\) are synthesis scaling and wavelet functions, respectively. We also have two sets
+  of dilation equations in this case.</p>
+  
+  <p>Analysis Dilation Equations</p>
+  
+  \[
+ \widetilde{\phi}(t)=2\sum_{k} \widetilde{h}(k)\widetilde{\phi}(2t-k)
+ \]
+ 
+ \[
+ \widetilde{\psi}(t)=2\sum_{k} \widetilde{g}(k)\widetilde{\phi}(2t-k)
+ \]
+  
+ <p>Synthesis Dilation Equations</p>
+  
+     \[
+ \phi(t)=2\sum_{k} h(k)\phi(2t-k)
+ \]
+ 
+ \[
+ \psi(t)=2\sum_{k} g(k)\phi(2t-k)
+ \]
+ 
+ <p>In terms of scaling and wavelet functions we have four biorthogonality equations
+ at a given scale \(j\)</p>
+    
+    \[
+    <\phi_{j,k},\widetilde{\phi}_{j,l}>= \int_{-\infty}^{\infty} 2^\frac{j}{2} \phi(2^{j}t-k)2^\frac{j}{2} \widetilde{\phi}^{*}(2^{j}t-l)dt=\delta(k-l)
+    \]
+    
+    \[
+    <\psi_{j,k},\widetilde{\psi}_{j,l}>= \int_{-\infty}^{\infty} 2^\frac{j}{2} \psi(2^{j}t-k)2^\frac{j}{2} \widetilde{\psi}^{*}(2^{j}t-l)dt=\delta(k-l)
+    \]
+    
+    \[
+    <\widetilde{\phi}_{j,k},\psi_{j,l}>= \int_{-\infty}^{\infty} 2^\frac{j}{2} \widetilde{\phi}(2^{j}t-k)2^\frac{j}{2} \psi^{*}(2^{j}t-l)dt=0
+    \]
+    
+        \[
+    <\widetilde{\psi}_{j,k},\phi_{j,l}>= \int_{-\infty}^{\infty} 2^\frac{j}{2} \widetilde{\psi}(2^{j}t-k)2^\frac{j}{2} \phi^{*}(2^{j}t-l)dt=0
+    \]
+    
+    <p>These four equations can be proved by plugging dilation equations into the left hand side (inner products). The 
+    decomposition and reconstruction proof is similar to the orthogonal MRA case.<a href="fb2.html">(more on next page......)</a> </p>
+  
+
+    <div class="next">
+	    <a href="fb2.html">Filter Banks and Wavelets (Contd.)</a>
+    </div>
+    
+    
+	  		  
+	  
+
+  
+      </div>
+      <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <a href="../dsp/filters.html">FIR Filters</a><br \><hr>
+	      <a href="../dsp/fb.html">Introduction to Filter banks</a><br \><hr>
+	      <a href="../dsp/iterfb.html">Iterated Filter Banks</a><br \><hr>
+	      <a href="dwt.html">Discrete Wavelet Transform</a><br \><hr>
+	      <a href="fb2.html">Filter Design for Wavelets</a><br \><hr>
+	      <a href="mra.html">Multiresolution Analysis</a><br \><hr>
+	      <a href="intro.html">Introduction to Wavelets</a><br \><hr>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      <a href="http://is.rice.edu/~welsh/elec431/filterBank.html">Rice Filter Bank page</a><br \><hr>
+	      <a href="https://ccrma.stanford.edu/~jos/sasp/Multirate_Polyphase_Filter_Banks.html"> Stanford Filter Banks course page</a><br \><hr>
+	      	      <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      
+	        <a href="http://www.ec-securehost.com/SIAM/CB61.html">Daubechies::Ten lectures on Wavelets</a><br \><hr>
+        <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet tour of Signal processing</a><br \><hr>
+        <a href="http://www-math.mit.edu/~gs/books/wfb.html">Ngyuen,Strang::Wavelets and FilterBanks</a><br \><hr>
+	<a href="http://waveletsandsubbandcoding.org/">Kovacevic,Vetterli::Wavelets and SubBand Coding</a><br \><hr>
+	<a href="http://www.fourierandwavelets.org/">Goyal,Kovacevic,Vetterli::Fourier and Wavelet Signal Processing</a><br \><hr>
+      	<a href="http://portal.acm.org/citation.cfm?id=171594">Vaidyanathan::Multirate Systems and Filter Banks</a><br \><hr>
+
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

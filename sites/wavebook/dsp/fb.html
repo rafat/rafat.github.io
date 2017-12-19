@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Filter Banks</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+	
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/matlab.html">Wavelets in Matlab</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/fourier.html">Fourier Theory</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+  <div id="main">
+	  <h1> Multirate Systems and Filter Banks</h1>
+
+	  <p>Multirate systems are systems that contain multiple sample rates. There
+are a number of reasons why one may want such a system. Multirate may be 
+needed to reduce computational needs of a system. Instead of ,say, N operations
+per cycle the system may need N/M operations if the sampling rate is reduced
+by M. It may also be needed to help reduce redundancy as in the case of multichannel
+communications and M-band filterbanks.</p>
+
+<h3>Decimation</h3>
+
+	    <div align="center">  <img class="picture" src="../img/deci.png" />
+		  <br \><p>Decimation Block Diagram</p>
+	  </div>
+
+
+
+<p>Decimation by an integer M corresponds to retaining every \(Mth\) sample and discarding</p>
+\(M-1\) samples. In frequency domain, the output \( Y(e^{j\omega})\) is given by
+\[
+Y(e^{j\omega})=\frac{1}{M}X(e^{j\frac{\omega+2k\pi}{M}})
+\]
+
+for \(k=0,1,....,M-1\)
+
+<p>Aliasing is an issue as downsampling ``stretches'' the bandwidth by a factor M. Applying
+  the Shannon sampling theorem, the sampling frequency must be \(f_{s} > 2f_{max}M\) in 
+  order to prevent aliasing.An example of aliasing is shown below. A signal consisting of two 
+  sinusoids at 50Hz and 130Hz is originally sampled at 1000Hz. It is then downsampled by 2 and 5.
+  In the first case \( f_{s} = 1000 Hz \) is greater than \( 2f_{max}M = 520 Hz \) and, therefore, no
+  aliasing occurs. In the second case, \( f_{s} = 1000 Hz \) is less than \( 2f_{max}M = 1300 Hz \) 
+  and we see higher frequency appearing at 350 Hz.</p>
+
+  	    <div align="center">  <img class="picture" src="../img/deciex1.png" />
+		  <br \><p>Decimation Example 1</p>
+	  </div>
+
+	    	    <div align="center">  <img class="picture" src="../img/deciex2.png" />
+		  <br \><p>Decimation Example 2</p>
+	  </div>
+
+	    	    <div align="center">  <img class="picture" src="../img/deciex3.png" />
+		  <br \><p>Decimation Example 3</p>
+	  </div>
+
+
+
+
+<h3>Interpolation</h3>
+
+<p>At its simplest, L-interpolation is the process of adding \(L-1\) zeros
+between sample values of a signal \(x\).</p>
+
+  	    <div align="center">  <img class="picture" src="../img/interp.png" />
+		  <br \><p>Interpolation Block Diagram</p>
+	  </div>
+
+
+<p>In frequency domain, the output \( Y(e^{j\omega})\) is given by
+\[
+Y(e^{j\omega})=X(e^{jL\omega})
+\]
+
+   ``Imaging'' is a an upsampling phenomena that corresponds to aliasing
+   in the downsampling case. Since an interpolator is compressing a signal,
+   its images appear in the frequency band and depending on the interpolation
+   factor we need a suitable low-pass filter (anti-imaging filter) to filter
+   out these images. Shown below is an example of imaging after upsampling
+   the signal from example above by a factor of 2.</p>
+
+     	    <div align="center">  <img class="picture" width=100% src="../img/interpex.png" />
+		  <br \><p>Interpolation Example</p>
+	  </div>
+   
+	  <h3>Polyphase Representation</h3>
+	  <p>Consider a time series \(X(z)=\sum_{n= -\infty}^{\infty} x(n) z^{-n}\). We can use
+	  the decimation by \(2\) idea and separate it into its even and odd coefficients.</p>
+
+\[
+X(z)=\sum_{n= -\infty}^{\infty} x(2n) z^{-2n}+z^{-1}\sum_{n= -\infty}^{\infty} x(2n+1) z^{-(2n)}
+\]
+
+<p>Let \(P_{0}(z)=\sum_{n= -\infty}^{\infty} x(2n) z^{-n}\) and \(P_{1}(z)=\sum_{n= -\infty}^{\infty} x(2n+1) z^{-n}\) then \(X(z)\) can be written as </p>
+  \[
+  X(z)=P_{0}(z^{2})+z^{-1}P_{1}(z^{2})
+  \]
+  
+  <p>This idea can be extended to any value \(M\) instead of just \(2\).</p>
+  \[
+  X(z)=\sum_{n= -\infty}^{\infty} x(Mn) z^{-Mn}+z^{-1}\sum_{n= -\infty}^{\infty} x(Mn+1) z^{-(Mn)}+....+
+  z^{-(M-1)}\sum_{n= -\infty}^{\infty} x(Mn+M-1) z^{-(Mn)}
+  \]
+  
+  <p>This representation is known as polyphase representation and is used to implement efficient filter banks :</p>
+  
+  \[
+  X(z)=\sum_{i=0}^{M-1} P_{i}(z^{M}) z^{-i}
+  \]
+	  
+
+<h2>Filter Banks</h2>
+
+<p> Low pass and High pass filters process the signal by allowing
+   only specific frequencies to go through- low pass and high pass
+   frequencies, respectively. This obviously serves a very useful purpose
+   but if these filters are used together then with proper design they can
+   also reconstruct the original signal. A filter bank is a system in which
+   two or more filters are used together to analyze and process a given signal.</p>
+
+     	    <div align="center">  <img class="picture" src="../img/twochannel.png" />
+		  <br \><p>Two Channel Filter Bank</p>
+	  </div>
+   
+ 
+  
+<p>Figure above shows an example of a two channel filter bank. Analysis part
+  of the filter bank decomposes a signal while the synthesis part reconstructs
+  it. \(h_{1}(n)\) and \(h_{2}(n)\) are the low pass filters while \(g_{1}(n)\)
+  and \(g_{2}(n)\) are complementary high pass filters. </p>
+  
+  <h3>Perfect Reconstruction property</h3>
+  
+  <p>Using interpolation and decimation frequency equations, the outputs at the
+  two output nodes of analysis filters are 
+  \(\frac{1}{2}(X(\frac{\omega}{2})H_{1}(\frac{\omega}{2})+X(\frac{\omega}{2}+\pi)H_{1}(\frac{\omega}{2}+ \pi))\)
+  and \(\frac{1}{2}(X(\frac{\omega}{2})G_{1}(\frac{\omega}{2})+X(\frac{\omega}{2}+\pi)G_{1}(\frac{\omega}{2}+ \pi))\)</p>
+  
+  <p> After feeding these two outputs to the two input nodes of synthesis filter, we get( in z-domain)</p>
+  
+  \[
+  Y(z)=\frac{1}{2}(H_{1}(z)H_{2}(z)+G_{1}(z)G_{2}(z))X(z) + 
+  \frac{1}{2}(H_{1}(-z)H_{2}(z)+G_{1}(-z)G_{2}(z))X(-z)
+  \]
+  
+  <p> For perfect reconstruction, we need \(Y(\omega)=X(\omega)\), this gives us two equations</p>
+  \[
+  \frac{1}{2}(H_{1}(z)H_{2}(z)+G_{1}(z)G_{2}(z))= z^{-L}
+  \]
+  
+  and
+  
+  \[
+  \frac{1}{2}(H_{1}(-z)H_{2}(z)+G_{1}(-z)G_{2}(z)) = 0
+  \]
+  
+  <p> First equation is called the no distortion equation and the right hand term is a delay
+  element. Second equation is the anti-aliasing equation and needs to be zero for Perfect
+  Reconstruction Filter Bank to serve its purpose.</p>
+  
+  <h3>Orthogonal Filter Banks</h3>
+  
+  <p>Before discussing Orthogonal Filter Banks it is important to discuss orthogonality with
+  respect to a filter \(h(n)\). In wavelet theory, double shift orthogonal filters play a very
+  important role. A filter \(h(n)\) is double shift orthogonal if </p>
+  \[
+  \lt h(n),h(n-2k)\gt =\delta(k)
+  \]
+  
+  <p>In the case of two channel filter banks, we can obtain the other three filters just by designing
+  one filter and then using the orthogonality and Perfect Reconstruction properties. Because of double
+  shift orthogonality, we can only design even orthogonal filters. It has been shown that for a given
+  low pass filter \(h_{1}(n)\), the high pass filter can be obtained by alternating flip method, ie., 
+  coefficients of low pass filters are flipped and then the sign of every alternate coefficient is flipped.
+  The filters of synthesis filter banks can be obtained by using the no-distortion and no-aliasing equations
+  of the Perfect Reconstruction property. It turns out that for a given \(N+1\)-tap low pass analysis filter \(H_{1}(z)\),
+  the other three filters are</p>
+  
+    <p> High Pass Analysis Filter \(H_{2}(z) = -z^{-N}H_{1}(z)\)
+  
+  
+  Low Pass Synthesis Filter \(G_{1}(z) = H_{2}(-z)\)
+  
+  High pass Synthesis Filter \(G_{2}(z) = -H_{1}(-z)\)</p>
+  
+  
+  <h3> Biorthogonal Filter Banks</h3>
+  
+  <p> As has been mentioned previously, linear phase filter response is a desirable
+  property in a number of applications and even with all their positives, Orthogonal
+  filter banks are not linear phase filters. Only Haar filter bank is orthogonal and 
+  linear phase. Biorthogonal filter banks consists of filters where the filters are not 
+  orthogonal to themselves. They are constructed such that the analysis filters are
+  orthogonal to the synthesis filters in addition to being linear phase. Using orthogonality
+  and perfect reconstruction properties of biorthogonal filters, it can be shown that if given
+  two FIR filters \(H_{1}(z)\) and \(G_{1}(z)\), the other two filters in the 
+  biorthogonal filter bank can be constructed as
+  
+  \(H_{2}(z)= G_{1}(-z)\) and \(G_{2}(z)= -H_{1}(-z)\)</p>
+  
+  
+
+  
+      </div>
+      <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

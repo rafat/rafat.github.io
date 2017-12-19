@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Fourier Transform</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/matlab.html">Wavelets in Matlab</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/fourier.html">Fourier Theory</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li> 
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	   
+  </dl> 
+      <div id="main">
+	      <h1>Fourier Analysis </h1>
+	      <p>Fourier Analysis is rooted in the knowledge that almost all
+signals can be represented as a sum of cosines and it makes sense
+to break them down into their component cosines in order to analyze
+for things like noise, discontinuities etc. in the frequency domain.</p>
+
+
+<h3>Continuous Time Analysis</h3>
+
+<p>In continuous domain Fourier Transform analysis equation is given by
+
+\[
+ X(e^{j\omega})= \int_{-\infty}^{\infty} x(t) e^{-j\omega t}dt
+\]
+
+and the synthesis equation is</p>
+ 
+ \[
+ x(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty} X(e^{j\omega}) e^{j\omega t} d\omega
+ \]
+
+ <p>This continuous fourier transform exists only and only if signal \(x(t)\) is 
+ absolutely integrable.</p>
+
+\[
+\int_{-\infty}^{\infty} x(t) dt \lt \infty
+\]
+
+<p>Before we move on to discrete domain it is helpful to point out that
+Fourier Transform requires knowledge of signal at all times which is really
+impractical in discrete domain. Continuous Time Fourier Series [CTFS] attempts
+to address this issue and is given by</p>
+\[
+c_{n}=\frac{1}{T} \int_{0}^{T} x(t) e^{-jn \omega_{0}t} dt
+\]
+
+<p>where \(c_{n}\) is the \(nth\) harmonic and \(\omega_{0}\) is the fundamental frequency.</p>
+ 
+<p>The synthesis equation is given by</p>
+ 
+ \[
+ x(t)=\sum_{n=-\infty}^{\infty} c_{n}e^{jn \omega_{0}t}
+ \]
+ 
+ <p> CTFS seems better from a digital point of view than it actually is. The integral
+   is finite but for synthesis equation we still need to calculate for all values of
+   \(n\) which isn't any simpler for computers.</p>
+   
+   <h3>Discrete Time Analysis</h3>
+
+   <p>Corresponding to continuous time fourier transform, we have Discrete Time Fourier Transform(DTFT).
+  
+  \[
+  X(e^{j \omega_{n}})= \sum_{k=-\infty}^{\infty} x(k) e^{-jk \omega_{n}}
+  \]
+  
+   where \(\omega_{n} \in (-\pi,\pi)\) is the normalized frequency.It is normalized
+   with respect to sampling frequency \(f_{s}\). DTFT exists only if \(x(k)\) is absolutely summable.</p>
+   
+   \[
+   \sum_{k=-\infty}^{\infty}x(k) \lt \infty
+   \]
+
+   <p> Inverse Discrete Time Fourier Transform is similarly given by</p>
+ \[
+ x(k)=\frac{1}{2\pi}\int_{\omega_{n}=-\pi}^{\pi} X(e^{j \omega_{n}}) e^{jk \omega_{n}} d\omega_{n}
+ \]
+ 
+ <p>One problem that jumps out is that periodic signals, eg. sinusoids, are neither absolutely summable nor of finite energy
+  which means that DTFT can not exist for these signals. Discrete Time Fourier Series is defined for periodic signal 
+  \(x_{p}(k)\).
+  \[
+  x_{p}(k)=\sum_{n=0}^{N-1} c_{n} e^{\frac{j2\pi nk}{N}}
+  \]
+  
+    where the complex exponential \(e^{\frac{j2\pi nk}{N}}\) is periodic in both \(k\) and \(n\) with
+    period \(N\). \(c_{n}\) is known as the spectrum of the signal and , because of periodicity of \(n\)
+    ,\(k\) and Nyquist sampling rate, it is given by</p>
+    
+    \[
+    c_{n}=\frac{1}{N}\sum_{k=0}^{N-1} x_{p}(k)e^{-\frac{j2\pi nk}{N}}
+    \]
+    
+    <p> It should be noted that both analysis and synthesis equations of DTFS are finite summations which
+    makes it suitable for digital implementation with only problem being it is only defined for periodic signals
+    which makes its implementation tricky and leads us to Discrete Fourier Transform</p>
+    
+    <h3>Discrete Fourier Transform</h3>
+    
+    <p>Discrete Fourier Transform is a mapping of \(N\)-sample time domain signal to  \(N\)-sample frequency domain
+    signal. Signals in either or both domain can be complex so it is a \(C^{N}\leftrightarrow C^{N}\) mapping.
+    The Discrete Fourier Transform of a signal \(x(k)\) is given by
+    \[
+    X(n)=\sum_{k=0}^{N-1} x(k) e^\frac{-j2\pi kn}{N} 
+    \]
+    
+    for \( n \in [0,1,...,N-1]\)</p>
+    
+    <p>The synthesis equation for DFT is known as Inverse Discrete Fourier Transform and is given by
+    
+    \[
+    x(k)=\frac{1}{N}\sum_{n=0}^{N-1} X(n) e^\frac{j2\pi kn}{N}
+    \]
+    
+    for \( k \in [0,1,...,N-1]\)
+    
+      Unlike DTFS, DFT assumes periodicity and we don't have to prove periodicity of a given signal
+      before computing its transform which makes things significantly easier. One of the most important
+      property of DFT is that it is orthogonal. DFT's basis functions \(e^\frac{-j2\pi kn}{N}\) form a 2D
+      orthogonal matrix. This property is utilized in numerous signal processing and digital communications
+      applications.</p>
+    
+      <h3>Fast Fourier Transform</h3>
+    
+      <p>One issue with DFT is that it is computationally intensive for large values of \(N\). 
+    \[
+    X(n)=\sum_{k=0}^{N-1} x(k) e^\frac{-j2\pi kn}{N} 
+    \]
+      If you look at the DFT equation, we need \(N^{2}\) complex multiplication and approximately
+       \(N^{2}\) addition operations in order to compute \(X(n)\) and this may get unwieldy for
+       large values of N. Fast Fourier Transform is an algorithm (there are many algorithms actually)
+       that makes DFT computation faster. A simple introduction follows. Let us consider a N-point DFT
+       where \(N=2^{n}\). We can partition \(x(k)\) into even and odd terms \(x_{e}(k)\) and \(x_{o}(k)\)
+       of length \(N/2\) each. \(x_{e}(k)= x(2k)\) are even terms and \(x_{o}(k)= x(2k+1)\) are odd terms.</p>
+       
+       <p>Taking DFT of \(x(k)\)
+       
+  \[
+   X(n)=\sum_{k=0}^{N-1} x(k) e^\frac{-j2\pi kn}{N} 
+   \]
+   
+   \[
+   X(n)=\sum_{k=0}^{N/2-1} x(2k) e^\frac{-j2\pi 2kn}{N} + \sum_{k=0}^{N/2-1} x(2k+1) e^\frac{-j2\pi (2k+1)n}{N} 
+   \]
+   
+    \(e^\frac{-j2\pi 2kn}{N}\) in equation above are basis functions of a \(N\)-point DFT but since each part of
+    the signal is being computed for \(N/2\)-point DFT, the equations can be re-written as
+    
+    \[
+   X(n)=\sum_{k=0}^{N/2-1} x(2k) e^\frac{-j2\pi kn}{N/2} + \sum_{k=0}^{N/2-1} x(2k+1) e^\frac{-j\pi n}{N/2}e^\frac{-j2\pi kn}{N/2} 
+   \]
+   
+   It can be seen that above equation represents sum of two \(N/2\) DFTs with second one having a ``twiddle'' factor of 
+   \(e^\frac{-j\pi n}{N/2}\). The computation needed for this configuration. ,excluding twiddle factor multiplication,  is, therefore \(2(N/2)^{2} = \frac{N^2}{2}\) which is roughly half of original \(N\)-point DFT. We can similarly keep halving the signal to the point where only \(N\log_{2}(N)\) computations are needed. As can be seen, for large values of N FFT algorithm 
+   is far superior to original DFT and is an essential part of any engineering and mathematical toolbox.</p>
+    
+  
+  
+      </div>
+      <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

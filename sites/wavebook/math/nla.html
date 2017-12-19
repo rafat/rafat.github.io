@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Nonlinear Approximation</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+      <div id="main">
+<h1>Non-Linear Approximation</h1>
+
+<p>In data compression applications, a good approximation error rate decay is crucial and it makes sense
+to utilize wavelet property of returning large coefficients at discontinuities and signal fluctuations.
+For an orthonormal basis \(e_{k}\), the approximation error is given by</p>
+
+ \[
+ e_{N}=\|f-f_{N}\|^{2}= \sum_{k=N}^{\infty} | \lt f,e_{k} \gt |^{2}
+ \]
+ 
+   <p>In linear case, we choose first \(M\) coefficients ,eg. in Fourier domain we go with lowest \(M/2\) 
+   positive and negative frequencies and in wavelet domain we choose first \(M\) coefficients starting with
+   the coarsest scale. In Nonlinear case,we go with \(M\) largest coefficients by choosing the \(M\) largest
+   inner products. So instead of dividing the coefficient space linearly, we do an nonlinear division by allocating
+   coefficients in two sets denoted by ,say, \(I_{m}\) which contains the \(M\) largest coefficients and a set which
+   contains all other coefficients.</p>
+   
+   \[
+   | \lt f,e_{m} \gt | \geq | \lt f,e_{n} \gt | ,  \forall m \in I_{m} , \forall n \notin I_{m}
+   \]
+
+<p>The best nonlinear approximation is ,therefore, given by</p>
+
+\[
+f_{M}=\sum_{m \in I_{m}} \lt f,e_{m} \gt e_{m}
+\]
+
+<p>for an orthonormal basis. The approximation error is given as before</p>
+
+\[
+ e_{M}=\|f-f_{M}\|^{2}= \sum_{m \notin I_{m}} | \lt f,e_{m} \gt |^{2}
+ \]
+ 
+ <h3>Non-Linear Approximation Error Decay</h3>
+
+<p>Let us consider Fourier Transform first. If the function is smooth, Fourier transforms do 
+a good job as most energy is concentrated in the lower frequencies and there is not much difference
+in using Linear and Non-linear Fourier approximation. If the function is piece-wise smooth, ie. it has
+discontinuities at points \(t_{k}\), fourier approximation does not give us appreciably better results
+as largest coefficients are clustered at the lowest frequencies that we pick in linear case anyway.It has been 
+proven that approximation error rate decays as \(1/M\) in Fourier case.</p>
+
+<p>Wavelets return large coefficients value at singularities, discontinuities etc. at every scale. If we are using 
+linear approximation, we start with coarse scales and move to the finer scales but as is obvious quite a few large
+coefficients are ignored using this method. Let us suppose that there are \(M\) large coefficients distributed over \(M\) scales. If we are using non-linear approximation we can conceivably pick out all of these \(M\) coefficients instead of picking 
+\(M\) coefficients across only \(J < M\) scales. The amplitude of wavelet coefficient is proportional to \(2^{-j/2}\) at scale \(j\). So if we stop at scale \(J < M\) using linear approximation, the last coefficients picked are of the order \(2^{-J/2}\) while the largest coefficient not selected has an amplitude in the range of \(2^{-(J+1)/2}\). 
+However, if we are using non-linear approximation, the largest coefficient not picked will have the order \(2^{-(M+1)/2}\) so
+we see that in non-linear case , the error is decaying exponentially.</p>
+
+ <p>This can be demonstrated in Matlab using the following script</p>
+ 
+<div id="verbatim">
+	<pre>
+function f=nlapprox
+
+% Linear Fourier and Wavelet Approximations using 100 
+%coefficients out of 256
+f = load_signal('Piece-Regular', 256); % Using this Wavelab
+% function to generate a piecewise signal
+x=f';% Preparing signal for wt.m
+% Fourier Nonlinear Aproximation using 100 coefficients
+figure(1);plot(x),title('Piecewise Regular Signal');
+yf=fft(x);
+yf_shift=fftshift(yf);
+% plot(abs(yf_shift));
+% Signal reconstruction using all coeffiecients
+% oup_f=ifft(yf);
+% figure(2)
+% plot(real(oup_f));
+
+% Signal Reconstruction using n=100 coefficients
+
+% Nonlinear Fourier Approximation
+n=100;
+N=length(yf_shift);
+tf=findthresh(yf_shift,n);
+yf_shift(abs(yf_shift)\< tf)=0;%Remove "\"
+yf_appx=fftshift(yf_shift);
+oup_f=ifft(yf_appx);
+figure(2)
+plot(real(oup_f));
+title(' Nonlinear Fourier Approximation 100/256 coeffs');
+
+% Linear Wavelet Approximation
+
+% Signal is decomposed to level-4 and signal 
+% is thresholded to choose 100 coefficients
+% Using Db2 wavelets
+[lp,hp,lp2,hp2]=wfilters('db2');
+J=4;
+[cA,cD,dcoeff]=wt_test(x,J,lp,hp);
+
+% Choosing 100 coefficients
+% All 256 coefficients are processed to find the 
+%threshold and the largest 100 coefficients are chosen
+ % while those below the thresold are set to zero.
+coeff2=[cA,dcoeff(4,1:16),dcoeff(3,1:32),....
+                    dcoeff(2,1:64),dcoeff(1,1:128)];
+tw=findthresh(coeff2,n);
+coeff2(abs(coeff2)\< tw)=0;%Remove "\"
+cA=coeff2(1:16);
+dcoeff(4,1:16)=coeff2(16+1:2*16);
+dcoeff(3,1:32)=coeff2(32+1:2*32);
+dcoeff(2,1:64)=coeff2(64+1:2*64);
+dcoeff(1,:)=coeff2(128+1:2*128);
+figure(3)
+yw=iwt_test(cA,dcoeff,J,lp2,hp2);
+plot(yw),title('Nonlinear Wavelet Approximtion 100/256 coeffs');
+ 
+	</pre>
+</div>
+	   	  <div align="center">  <img class="picture" src="../img/appxsig.png" />
+		  <br \><p>N=256 Piecewise Regular Signal</p>
+	  </div> 
+
+  
+ <p> As can be seen from the program , a threshold is chosen depending on the number of approximation coefficients
+   and all coefficients that fall below this threshold are set to zero. We calculate Inverse FFT and Inverse DWT
+   based on these new values of coefficients. While Nonlinear Fourier Approximation doesn't show much improvement 
+   over its linear counterpart but ,as expected Nonlinear Wavelet approximation shows dramatic improvement over
+   linear Wavelet Approximation.</p>
+ 
+ 	   	  <div align="center">  <img class="picture" src="../img/nfa.png" />
+		  <br \><p>100 coefficients Nonlinear Fourier Approximation</p>
+	  </div> 
+
+   
+
+	   	  <div align="center">  <img class="picture" src="../img/nwa.png" />
+		  <br \><p>100 coefficients Nonlinear Wavelet Approximation</p>
+	  </div> 
+
+ 
+  
+
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+		      		      <a href="../dsp/dft.html">Fourier Transform</a><br \><hr>
+		      <a href="../intro/dwt.html">Discrete Wavelet Transform</a><br \><hr>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+		 	 <a href="http://www.ceremade.dauphine.fr/~peyre/numerical-tour/tours/">Numerical Tour</a><hr>
+
+		 		 <div id="box">
+		      <h3>References</h3>
+				 </div>
+	      <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet Tour of Signal processing</a><br \><hr>
+	      <a href="http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=952805">Vetterli et al::Wavelets, approximation, and compression</a>
+	      <br \><hr>
+		<a href="http://www-math.mit.edu/~gs/books/wfb.html">Strang/Nguyen::Wavelets and FilterBanks</a><br \>	<hr>
+	      
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

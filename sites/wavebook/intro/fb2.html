@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Filter Design</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	  
+  </dl> 
+      <div id="main">
+	      <h1>Filter Design for Wavelets</h1>
+    
+	      <p>For two channel filter banks, perfect reconstruction equations are given by 
+    
+     \[
+  \frac{1}{2}(H_{1}(z)H_{2}(z)+G_{1}(z)G_{2}(z))= z^{-L}
+  \]
+  
+  and
+  
+  \[
+  \frac{1}{2}(H_{1}(-z)H_{2}(z)+G_{1}(-z)G_{2}(z)) = 0
+  \]</p>
+  
+  <p>First equation is called the no-distortion equation while second one is no aliasing condition. For filter
+  design we focus mainly on the first equation. \(H_{1}(z)\) and \(H_{2}(z)\) are analysis and synthesis
+  low pass filters while \(G_{1}(z)\) and \(G_{2}(z)\) are high pass filters. For perfect reconstruction,
+  it is sufficient to design low pass filters and obtain high pass filters from them.</p>
+  
+  <p>Let \(P(z)\) be the product filter of the two low pass filters.</p>
+  
+  \[
+  P(z)=H_{1}(z)H_{2}(z)
+  \]
+  <p>Three steps are needed to design the perfect reconstruction filter bank</p>
+  <ul>
+	  <li> 1. Design Low Pass Filter \(P(z)\).</li>
+     
+	  <li>2. Factorize \(P(z)\) to find \(H_{1}(z)\) and \(H_{2}(z)\).</li>
+     
+	  <li>3. Use PR conditions to obtain high pass filters from low pass filters.<li>
+  </ul>
+     
+  <p> Step 3 is trivial once the low pass filters are obtained. Choose \(H_{2}(z)=G_{1}(-z)\)
+  and \(G_{2}(z)=-H_{1}(-z)\) for alias cancellation. Plugging this in first PR equation we get</p>
+    
+    
+       \[
+  \frac{1}{2}(H_{1}(z)H_{2}(z)-H_{2}(-z)H_{1}(-z))= z^{-L}
+  \]
+  
+     \[
+  P(z)-P(-z)= 2z^{-L}
+  \]
+  
+  <p>It can be seen from the equation above that all odd powers of \(P(z)\) will cancel out. If we
+  redefine \(P(z):=z^{-L}P(z)\), the equation changes to
+  \[
+  z^{-L}P(z)-(-z)^{-L}P(-z)=2z^{-L}
+  \]
+  
+  or,
+  
+  \[
+  P(z)+P(-z)=2
+  \]</p>
+  
+  <p>This is done to center the equation so that the coefficient of the term \(z^{0}\) is non-zero.
+  Filter  \(P(z)\) is known as halfband filter. All of its even terms, with the exception of \(z^{0}\)
+  are zero. When we add \(P(z)\) with \(P(-z)\) we are left with a constant 2.[ Remember that only odd terms
+  will cancel out with the addition so if there is an even term present it will appear in the output ].Furthermore,
+  \(P(z)\) is a product of two low pass filters. </p>
+  
+  <p>In orthogonal case,
+  \[
+  P(z)=H_{1}(z)H_{1}(z^{-1})=H_{1}(e^{j\omega})H_{1}(e^{-j\omega})
+  \]
+  
+  which can be seen as an autocorrelation function because in time domain, the two filters are time reversed versions of each other. eg., \(1+az^{-1}+bz^{-2}+cz^{-3}\) and \(1+az^{1}+bz^{2}+cz^{3}\) have coefficents \([1,a,b,c]\) and \([c,b,a,1]\).</p>
+  
+  <p>In the case where the two low pass filters are ``different'' (one cannot be obtained from other just by reversing the filter 
+  order) ,as in biorthogonal filter bank, the product \(P(z)\) can be seen as a cross-correlation function. It will still be a
+  low pass filter in both cases.</p>
+  
+  
+  <p> There are a number of halfband filter design and factorization methods. Daubechies and Meyer's methods are more commonly used.</p>
+   
+  <p>Daubechies Method: Daubechies defined P as \(2(1-y)^{p}B_{p}(y)\) where \(B_{p}(y)\) is a truncated Binomial polynomial of
+   degree \((p-1)\) and \(p\) coefficients.
+   
+   \[
+   B_{p}(y)=(1-y)^{-p}=1+py+\frac{p(p+1)}{2}y^{2}+....+(\begin{array}{ccc}2p-2\\p-1\end{array})y^{p-1}
+   \]
+   
+   The coefficient of \(y^{k}\) is \((\begin{array}{ccc}p+k-1\\k\end{array})\). The factor  \((1-y)^{p}\) has \(p\) zeros 
+   at \(y=1\). In Low Pass filter case, we want zeros at \(z=-1\) or \(\omega=\pi\). Let
+   \[
+   y=\frac{(1-e^{-j\omega})}{2}\frac{(1+e^{-j\omega})}{2}
+   \]
+    in order to maintain symmetry
+    
+    \[
+    y=(\frac{1-cos\omega}{2})
+    \]
+    
+    which gives 
+    
+    \[
+    P(\omega)=2(\frac{1+cos\omega}{2})^{p}\sum_{k=0}^{p-1}(\begin{array}{ccc}p+k-1\\k\end{array})(\frac{1-cos\omega}{2})^{k}
+    \]</p>
+    <p> In z-domain this can be written as 
+  
+   \[
+    P(z)=2(\frac{1+z}{2})^{p}(\frac{1+z^{-1}}{2})^{p}\sum_{k=0}^{p-1}(\begin{array}{ccc}p+k-1\\k\end{array})(\frac{1-z}{2})^{k}(\frac{1-z^{-1}}{2})^{k}
+    \]
+  
+    \(P(z)\) can be obtained for different values of p. Once we have P(z), the next step is to factorize it in order to obtain the low pass filters.</p>
+ 
+    <p>Meyer's Method: It consists of integrating \(P'(\omega)\) and choosing a value c such that \(P(\pi)=0\).It is given by
+ 
+ \[
+ P(\omega)=2-c\int_{0}^{\omega} (sin(\omega))^{2p-1} d\omega
+ \]</p>
+ 
+ <p>Plots of \(P(\omega)\) for values of \(p=1,2,3\)</p>
+  
+  <div align="center">  <img class="picture" src="../img/pfilt1.png" />
+		  <br \><p>\(P(\omega\)) for p=1</p>
+	  </div>
+  
+
+  <div align="center">  <img class="picture" src="../img/pfilt2.png" />
+		  <br \><p>\(P(\omega\)) for p=2</p>
+	  </div>
+	  
+
+	    <div align="center">  <img class="picture" src="../img/pfilt3.png" />
+		  <br \><p>\(P(\omega\)) for p=3</p>
+	  </div>
+
+
+  <h3>Spectral factorization</h3>
+
+  <p>Once we have \(P(z)\), the next step is to find low pass filters. In the orthogonal case \(P(z)=H(z)H(z^{-1})\). As seen above
+  \(P(z)\) can be re-written as </p>
+
+\[
+P(z)=[(1+z)^{p}(1+z^{-1})^{p}Q(z)]
+\]
+
+<p>The value of \(Q(z)\) comes from binomial expansion and , looking at these equations, it makes sense to factorize \(Q(z)\) as
+\(Q(z)=R(z)R(z^{-1})\). Daubechies suggested that \(H(z)\) be chosen such that it is minimum phase which will make \(H(z^{-1}\) maximum phase. Therefore, \(R(z)\) must be chosen to be causal and with all its zeros inside the unit circle. For example, 
+consider the product filter for p=2. Its pole-zero plot as obtained using Matlab is shown below.</p>
+
+
+  <div align="center">  <img class="picture" src="../img/pzp1.png" />
+		  <br \><p>Pole zero plot of \(P(\omega\) for p=2</p>
+	  </div>
+  
+
+	  <p> There are four zeros at \(z=-1\). For orthogonal filters, we need to assign them equally to \(H(z)\) and \(H(z^{-1})\).</p>
+   
+   \[
+   P(z)=(\frac{-1}{16}z^{3}+\frac{9}{16}z^{1}+1+\frac{9}{16}z^{-1}+\frac{9}{16}z^{-3})
+   \]
+   
+   <p>This can be expressed as </p>
+   \[
+   P(z)=\frac{1}{16}(1+z)^{2}(1+z^{-1})^{2}(-z+4-z^{-1})
+   \]
+   
+   <p> As can be seen from the equation and pole-zero plot. This has \(4\) zeros at \(z=-1\). The other two zeros are at \(2-\sqrt{3}\) and \(2+\sqrt{3}\). \(H(z)\) is assigned the zero inside the unit circle while \(H(z^{-1})\) takes zeros from outside the unit circle.
+ Calculating coefficients using roots function of matlab gives us four coefficients for analysis low pass filter
+ \(h(n)=[0.3415,    0.5915,    0.1585,   -0.0915]\). The synthesis low pass filter is time reversed \(h(-n)=[-0.0915,  
+  0.1585,  0.5915,  0.3415]\). The analysis and synthesis high pass filters can be calculated by alternate flipping the
+  low pass coefficients and they are found to be \([-0.0915,   -0.1585,    0.5915,   -0.3415]\) and \([0.3415,   -0.5915,    0.1585,    0.0915]\). The scaling and wavelet functions can be calculated using iteration method. They are below. </p>
+
+    <div align="center">  <img class="picture" src="../img/db2scal.png" />
+		  <br \><p>Scaling Function for Db2 wavelets(p=2)</p>
+	  </div>
+
+	     <div align="center">  <img class="picture" src="../img/db2wave.png" />
+		  <br \><p>Wavelet Function for Db2 wavelets(p=2)</p>
+	  </div>
+  
+
+  
+	  <h3>Filters for Biorthogonal Wavelets</h3>
+
+	  <p>Recall that we'll need two filters in this case and one of the requirement is that filters be linear phase. We can use same product filter \(P(z)\) in previous example and factor it accordingly to suit our goals. Obviously \(P(z)\) can be factored in a number of ways but one of the more commonly used factorization is designing one filter with two zeros at \(z=-1\) and the other filter contains other four zeros.</p>
+\[
+H_{1}(z)=\frac{1}{4}(1+z^{-1})^{2}
+\]
+
+<p>and</p>
+
+\[
+H_{2}(z)=-\frac{1}{4} (1+z^{-1})^{2} (2+\sqrt(3)-z^{-1})(2-\sqrt(3)-z^{-1})
+\]
+
+<p>Looking at it from discrete time-domain angle, the first filter is a ``hat function'', a symmetric filter with coefficients
+\([1,2,1]/4\) and the other filter is a convolution between  \([1,2,1]/4\) and \([-1 ,4, -1]/2\). The second filter has the coefficients \([-0.1250,    0.2500,    0.7500,    0.2500,   -0.1250]\). It is easy to see that both filters are symmetric, linear phase filters. We can obtain the two corresponding high pass filters using perfect Reconstruction condition. Using Matlab, they are found to be \([0.2500,   -0.5000,    0.2500]\) and \([0.1250,    0.2500,   -0.7500,    0.2500,    0.1250]\)
+This biorthogonal filter bank is usually known as \(5/3\) filter bank because of the length of th two filters ( 3 and 5 taps,
+respectively). The scaling and wavelet functions associated with these filters are calculated by iterating these filters over their respective dilation equations and they are plotted as following. </p>
+
+   <div align="center">  <img class="picture" src="../img/biorth53.png" />
+		  <br \><p>Wavelet and Scaling Functions for 5/3 Biorthogonal Filters (p=2)</p>
+	  </div>
+
+	  <h3>Lifting Scheme: Haar Decomposition</h3>
+
+	  <p>Haar Decomposition is the most basic form of wavelet decomposition which essentially decomposes a signal into its
+average(Low Pass) and difference(High Pass).The signal \(s_{j+1,k}\) at scale \(j+1\) is decomposed into approximated
+signal \(s_{j,k}\) and a detail part \(d_{j,k}\) which is stripped away from the original signal.</p>
+\[
+s_{j,k}=\frac{s_{j+1,2k}+s_{j+1,2k+1}}{2}
+\]
+
+\[
+d_{j,k}=s_{j+1,2k+1}-s_{j+1,2k}
+\]
+
+or the average \(s_{j,k}\) can be written as 
+
+\[
+s_{j,k}=s_{j+1,2k}+\frac{d_{j,k}}{2}
+\]
+<p>which is the even value of the signal added to half the difference between even and odd values of signal. In other words, if we calculate the difference first, we can calculate the average using only even values of the signal.</p>
+
+	   <div align="center">  <img class="picture" src="../img/haarlift.png" />
+		  <br \><p>Haar Decomposition using Lifting Scheme</p>
+	  </div>
+
+
+	  Looking at this scheme from a slightly different angles, we are trying to predict the average using only even terms. This scheme can be generalized by using three steps
+	  <ul>
+
+		  <li>1. Split: Signal is split into even and odd components.</li>
+
+		  <li>2. Predict: We use predict matrices P that work only on one half (even) of the signal and replace odd part with the difference or detail of the signal. In other words, we are trying to predict odd values using even values.</li>
+
+		  <li>3. Update: The update matrices U update the even part by processing the difference part with U. Update is needed to preserve certain scalar quantities like average.</li>
+	  </ul>
+
+	  	   <div align="center">  <img class="picture" src="../img/lift.png" />
+		  <br \><p>Generalized Lifting Scheme</p>
+	  </div>
+
+
+
+	  <h4> Properties of Lifting Scheme</h4>
+ 
+	  <ul>
+		  <li>1. In-Place calculations: As can be seen from block diagrams, there is no reason to keep both even and odd components of the signal. We can simply replace odd values with the output after prediction. This idea can be extended when dealing with multi-stage lifting scheme. We can keep replacing inputs of any given branch with outputs and compute next stages as we go.</li>
+ 
+		  <li> 2. Invertibility: This is, of course, the most important property which makes lifting scheme useful in calculating wavelet transforms. As can be seen from the Haar example, the odd values of the input signal can be obtained by using even values and he difference values. In multistage lifting scheme inversion, we start from the last stage and keep inverting systematically until we recover the input. Inverted Lifting Scheme is shown below.</li>
+	  </ul>
+
+	  	   <div align="center">  <img class="picture" src="../img/invlift.png" />
+		  <br \><p>Generalized Inverted Lifting Scheme</p>
+	  </div>
+ 
+ 
+ 
+	  <h3>Constructing Biorthogonal Wavelets using Lifting Scheme</h3>
+ 
+	  <p>Consider a Biorthogonal Filter Bank with</p>
+ 
+	  <p>Low Pass Analysis Filter \(\widetilde{H_{j}}\)</p>
+ 
+	  <p>High Pass Analysis Filter \(\widetilde{G_{j}}\)</p>
+ 
+	  <p> Low Pass Synthesis Filter \(H_{j}\)</p>
+ 
+	  <p>High Pass Synthesis Filter \(G_{j}\)</p>
+ 
+	  <p>With lifting, the new filters are given by</p>
+ 
+ \[
+ H_{j}^{new}=H_{j}
+ \]
+ \[
+ \widetilde{H_{j}^{new}}=\widetilde{H_{j}}+S_{j}\widetilde{G_{j}}
+ \]
+ \[
+ G_{j}^{new}=G_{j}-S_{j}^{*}H_{j}
+ \]
+ \[
+ \widetilde{G_{j}^{new}}=\widetilde{G_{j}}
+ \]
+ 
+ <p> where \(S_{j}\) is a lifting operator which can be seen as equivalent to update operator U.</p>
+  
+ <p>For these new filters to work, they must satisfy perfect reconstruction property.
+    \[
+    \widetilde{H_{j}^{new}}(z)H_{j}^{new}(z)+\widetilde{G_{j}^{new}}(z)G_{j}^{new}(z)=2
+    \]
+    
+    and
+    
+    \[
+    \widetilde{H_{j}^{new}}(-z)H_{j}^{new}(z)+\widetilde{G_{j}^{new}}(-z)G_{j}^{new}(z)=0
+    \]</p>
+    
+    <p>In Matrix notation,</p>
+    
+    $$\left(\begin{array}{ccc} \widetilde{H_{j}^{new}} \\ \widetilde{G_{j}^{new}}\end{array}\right)=\left(\begin{array}{ccc} 1 & S_{j}\\0 & 1 \end{array}\right) \left(\begin{array}{ccc}\widetilde{H_{j}} \\ \widetilde{G_{j}}  \end{array}\right) $$
+    
+        $$\left(\begin{array}{ccc} H_{j}^{new} \\ G_{j}^{new} \end{array}\right)=\left(\begin{array}{ccc} 1 & 0 \\-S_{j}^{*} & 1 \end{array}\right) \left(\begin{array}{ccc} H_{j} \\ G_{j}  \end{array}\right) $$
+        
+	<p>Multiplying first equation on both sides with conjugate transpose of the second equation on both sides. The product of two \(S_{j}\) matrices is, therefore</p>
+        
+	$$\left(\begin{array}{ccc} 1 & S_{j}\\0 & 1 \end{array}\right)\left(\begin{array}{ccc} 1 & -S_{j} \\0 & 1 \end{array}\right)=\left(\begin{array}{ccc} 1 & 0\\0 & 1 \end{array}\right)$$
+	<p> which corresponds to perfect reconstruction condition.</p>
+    
+ 
+    
+  
+	<p>In time-domain, these four filter equations can be written as</p>
+  
+   \[
+ h_{j}^{new}(n)=h_{j}(n)
+ \]
+ \[
+ \widetilde{h_{j}^{new}}(n)=\widetilde{h_{j}}+\sum_{k} s_{j}(k)\widetilde{g_{j}}(n-k)
+ \]
+ \[
+ g_{j}^{new}(n)=g_{j}-\sum_{k} s_{j}^{*}(k)h_{j}(n-k)
+ \]
+ \[
+ \widetilde{g_{j}^{new}}(n)=\widetilde{g_{j}}(n)
+ \]
+ 
+ <p>Tt can be seen from the equations that \(\widetilde{g_{j}}(n)\) and  \(h_{j}^{new}(n)\) are unchanged. In order to find new wavelets and new scaling function we'll utilize dilation equations.</p>
+ 
+ <p>Analysis Dilation Equations</p>
+  \[
+ \widetilde{\phi}(t)=2\sum_{k} \widetilde{h}(k)\widetilde{\phi}(2t-k)
+ \]
+ 
+ \[
+ \widetilde{\psi}(t)=2\sum_{k} \widetilde{g}(k)\widetilde{\phi}(2t-k)
+ \]
+  
+ <p>Synthesis Dilation Equations</p>
+  
+     \[
+ \phi(t)=2\sum_{k} h(k)\phi(2t-k)
+ \]
+ 
+ \[
+ \psi(t)=2\sum_{k} g(k)\phi(2t-k)
+ \] 
+
+ <p>Since low pass synthesis filter is unchanged, the new scaling function associated will also be unchanged.</p>
+
+\[
+\phi^{new}(t)=\phi(t)
+\]
+
+<p>However, new wavelet function for synthesis side is as follows</p>
+
+\[
+\psi^{new}(t)=2\sum g^{new}(n)\phi(2t-n)
+\]
+<p>Plugging value of \(g^{new}(n)\) gives us the following
+ 
+ \[
+\psi^{new}(t)=2\sum g(n)\phi(2t-n)-\sum_{k} \sum s^{*}(k)h(n'-k))\phi(2t-n)
+\]
+  or,
+  
+   \[
+\psi^{new}(t)=\psi(t)-\sum_{k} s^{*}\phi(t-k)
+\]
+   Computing similarly we'll get \(\widetilde{\phi^{new}(t)}\) and \(\widetilde{\psi^{new}(t)}\).
+   
+   \[
+   \widetilde{\phi^{new}(t)}=2\sum \widetilde{h}(n)\widetilde{\phi^{new}}(2t-n) +2\sum s(k)\widetilde{\psi^{new}}(t-k)
+   \]
+   and
+   \[
+   \widetilde{\psi^{new}(t)}= 2\sum \widetilde{g}(n)\widetilde{\phi^{new}}(2t-n)
+   \]
+   </p>
+   <p>The Lifted Wavelet Transform along with its inverse is shown in figure. The transform consists of primal lifting and dual lifting. 
+
+   	   <div align="center">  <img class="picture" src="../img/liftwt.png" />
+		  <br \><p>Forward and Reverse Lifted Wavelet Transform</p>
+	  </div>
+
+   
+	  \(S\) corresponds to update stage(primal lifting) while \(t\) corresponds to prediction(dual lifting). Next we express this transform in its polyphase terms. Polyphase of a filter bank consisting of two filters \(H(z)\) and \(G(z)\) can be written as</p>
+  
+   $$P(z)=\left(\begin{array}{ccc} H_{e}(z) & G_e(z) \\ H_{o}(z) & G_{o}(z)\end{array}\right)$$
+	
+	
+   <p> where \(H(z)=H_{e}(z^{2})+z^{-1}H_{o}(z^{2})\) with even and odd parts separated and \(G(z)=G_{e}(z^{2})+z^{-1}G_{o}(z^{2})\)</p>
+	 
+   <p> If new filter is given by \(G^{new}(z)=G(z)+S(z^{2})H(z)\) then \(S(z^{2})H(z)\) can be given by polyphase \(H_{e}(z)S(z)\) and \(H_{o}(z)S(z)\). Therefore, the new polyphase matrix is</p>
+	 
+   $$P^{new}(z)=P(z) \left(\begin{array}{ccc} 1 & S(z) \\ 0 & 1\end{array}\right)$$
+	
+   <p>For dual lifting, the equation is \(H^{new}(z)=H(z)+T(z^{2})G(z)\). Proceeding as above, new filter polyphase matrix is given just for dual lifting is</p>
+	
+	   $$P^{new}(z)=P(z) \left(\begin{array}{ccc} 1 & 0 \\ T(z) & 1\end{array}\right)$$
+	 
+	   <p> Since we are using both primal and dual lifting in the same circuit, the new polyphase on the analysis side will be</p>
+	
+		
+	   $$\widetilde{P^{new}(z)}=\widetilde{P(z)} \left(\begin{array}{ccc} 1 & S(z) \\ 0 & 1\end{array}\right)\left(\begin{array}{ccc} 1 & 0 \\ T(z) & 1\end{array}\right)$$
+	
+	   <p>Next assume that we are using \(m\)-level cascade of primal and dual lifting then the new polyphase will be a product of \(m\) primal and dual matrices. Wim Sweldens and Ingrid Daubechies proved that using this method and starting with ``Lazy wavelet'' every finite wavelet transform can be obtained this way. A Lazy wavelet filter bank is one with \(H(z)=1\) and \(G(z)=z^{-1}\).</p>
+	 
+	   $$\widetilde{P^{new}(z)}=\left(\begin{array}{ccc} K_{1} & 0 \\ 0 & K_{2}\end{array}\right) \prod_{i}\left(\begin{array}{ccc} 1 & S_{i}(z) \\ 0 & 1\end{array}\right)\left(\begin{array}{ccc} 1 & 0 \\ T_{i}(z) & 1\end{array}\right)$$
+
+	   <p> To see examples of designing filter banks with lifting scheme check <a href="http://polyvalens.pagesperso-orange.fr/clemens/lifting/lifting.html#section7">this link</a>. More examples are available at <a href="http://cm.bell-labs.com/who/wim/">Wim Swelden's page</a>. These two papers[<a href="http://cm.bell-labs.com/who/wim/papers/papers.html#lift2">Link 1,</a><a href="http://cm.bell-labs.com/who/wim/papers/factor/index.html">Link2</a>] are essential reading.</p>. For software implementation, see <a href="http://www.bearcave.com/misl/misl_tech/wavelets/lifting/">this page</a>.
+	  
+
+
+    
+    
+
+  
+      </div>
+      <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <a href="../dsp/filters.html">FIR Filters</a><br \><hr>
+	      <a href="../dsp/fb.html">Introduction to Filter banks</a><br \><hr>
+	      <a href="../dsp/iterfb.html">Iterated Filter Banks</a><br \><hr>
+	      <a href="dwt.html">Discrete Wavelet Transform</a><br \><hr>
+	      <a href="fb.html">Filter Banks and Wavelets</a><br \><hr>
+	      <a href="mra.html">Multiresolution Analysis</a><br \><hr>
+	      <a href="intro.html">Introduction to Wavelets</a><br \><hr>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      <a href="http://is.rice.edu/~welsh/elec431/filterBank.html">Rice Filter Bank page</a><br \><hr>
+	      <a href="https://ccrma.stanford.edu/~jos/sasp/Multirate_Polyphase_Filter_Banks.html"> Stanford Filter Banks course page</a><br \><hr>
+	      	      <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      <ul>
+	      <li><a href="http://www-math.mit.edu/~gs/books/wfb.html">Ngyuen,Strang::Wavelets and FilterBanks</a></li><hr>
+		<li><a href="http://www.ec-securehost.com/SIAM/CB61.html">Daubechies::Ten lectures on Wavelets</a></li><hr>
+		<li><a href="http://cm.bell-labs.com/who/wim/papers/papers.html#lift2">Wim Swelden::The lifting scheme: A construction of second generation wavelets</a></li><hr>
+		<li><a href="http://cm.bell-labs.com/who/wim/papers/factor/index.html">Daubechies,Swelden::Factoring Wavelet Transforms into Lifting Steps</a></li><hr>
+	      </ul>
+
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

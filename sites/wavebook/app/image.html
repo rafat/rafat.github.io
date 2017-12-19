@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Image Processing</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li> 
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+      <div id="main">
+      
+      <h1>Image processing</h1>
+
+<h3>Image Denoising</h3>
+
+<p>\(2D\) Discrete Wavelet works similarly to \(1D\) transform and \(1D\)
+denoising principles can be used to denoise \(2D\) signals.\(2D\) decomposition
+transforms an image into \(4\) subimages, each a quarter size of the original,
+at each level.Of these \(subimages\), three are detail images and one is the
+approximation image. Denoising methods focus on these three detail images as
+they are the ones that contain high frequencies in at least one direction. A
+generic denoising algorithm is given as</p>
+
+<ul>
+
+<li>1. Calculate DWT of a noisy image.</li><br \>
+
+<li>2. Use thresholding in all the detail images to get rid of high spatial-frequency components.</li><br \>
+
+<li>3. Take Inverse DWT of thresholded signal.</li><br \>
+</ul>
+
+  <p>There are different thresholding algorithms involving different trade-offs
+  as a strict threshold results in loss of data while a more lax threshold
+  leaves noise in the image.</p>
+  
+  <p>There are a number of algorithms( see references) that are used to denoise
+  images. One of those method is Visushrink , which isn't a really efficient
+  method but is good to illustrate the denoising process as it uses global
+  thresholding. The threshold is chosen to be \(T=\sigma \sqrt{2 \log M}\) where
+  \(M\) is the number of pixels in the detail subimages.Hard thresholding is
+  pretty straightforward as all coefficients below the chosen threshold are set
+  to zero and results in a relatively poor performance as too many coefficients
+  are set to zero.</p>
+  
+  <div align="center">  <img class="picture" src="../img/noisyimage.png" />
+		  <br \><p>Noisy lena Image</p>
+</div>
+
+<div align="center">  <img class="picture" src="../img/denoisedhard.png" />
+		  <br \><p>Denoised Image using hard thresholding</p>
+</div>
+
+
+<p>Soft thresholding function is given by \(f_{s}(y,T)=sign(y) max(|y|-T,0)\). </p>
+
+<div align="center">  <img class="picture" src="../img/denoisedsoft.png" />
+		  <br \><p>Denoised Image using soft thresholding</p>
+</div>
+
+  <p>Soft thresholding gives better results. For more and better algorithms,
+  including those utilizing local thresholds, see references.</p>
+
+  <h3>Wavelet Edge Detection</h3>
+  
+  <p> Wavelets perform well as singularity/discontinuity detector in one dimension so it makes sense to extend the same ideas to two dimensions and edge detection. We know that one level of separable wavelet decomposition yields four subimages and three of these four subimages correspond to horizontal , vertical and diagonal edges. For a straightforward wavelet edge detector implementation, all three detail subimages can be linearly combined to give an edge detector at a given scale as shown in the figure below. The edge detector is implemented using ``Db4'' orthogonal wavelets and it isn't thresholded. Thresholding can be applied to yield better results but it is obvious from the figure that this is not an optimal solution. It is too noisy and some true edges are missed while false edges are being detected. One of the big issue of using high frequency response is that it contains noise and most edge detectors used in computer vision and image processing literature use smoothing gaussian filters
+  to get rid of noise. It has been suggested that applying Gaussian pre-processing to standard wavelet transforms will yield better results. A better approach is to use wavelets that are derived from these isotropic smoothing functions like Gaussians and splines.</p>
+
+ <div align="center">  <img class="picture" width="100%" src="../img/waveedge.png" />
+		  <br \><p>Edge Detection at Scale J=1</p>
+</div> 
+
+  
+<h3> Mallat's Multiscale Edge Detector</h3>
+  
+<p>Let \(\theta(x)\) be a smoothing function,ie. \( \int_{-\infty}^{\infty} \theta(x) dx=1\), then the wavelet \(\psi(x)\) can be defined as </p>
+  \[
+  \psi(x)=\frac{d\theta}{dx}
+  \]
+  
+  <p>In his 1992 paper, Mallat designed wavelets and filters using a smoothing function with Fourier Transform</p>
+  
+  \[
+  \theta(\omega)= \left[\frac{\sin(\omega/4)}{\omega/4}\right]^{(2n+2)}
+  \]
+  
+  <p>The scaling and wavelet functions are given by</p>
+  
+  \[
+  \phi(x)=\left[\frac{\sin(\omega/2)}{\omega/2}\right]^{(2n+1)}
+  \]
+  
+  \[
+  \psi(x)=i\omega \left[\frac{\sin(\omega/4)}{\omega/4}\right]^{(2n+2)}
+  \]
+  
+  <p>Filters are designed for \(n=1\) in the example below. For 2d implementation, we use two smoothing functions \(\theta_{1}(x)\)
+  and \(\theta_{2}(x)\) and we assume that they are approximately equal. The two wavelets are then given by</p>
+  
+    \[
+  \psi_{1}(x,y)=\frac{d\theta_{1}(x,y)}{dx}
+  \]
+    
+       \[
+  \psi_{2}(x,y)=\frac{d\theta_{2}(x,y)}{dy}
+  \]
+  
+  <p>They can be further defined by as separable computations of one dimensional functions.</p>
+   
+   \[
+   \psi_{1}(x,y)=2\psi(x)\phi(2y)
+   \]
+   
+    \[
+   \psi_{2}(x,y)=2\psi(y)\phi(2x)
+   \]
+   
+   <p>Each signal \(s_{2^{j+1}}^{d}(f)\) is decomposed into three signals - a low pass smoothed signal \(s_{2^{j}}^{d}(f)\) and two high pass components that correspond to horizontal and vertical edges if the input signal is an image, namely \(w_{2^{j}}^{1,d}(f)\) and \(w_{2^{j}}^{2,d}(f)\). The modulus \(M\) of the signal is computed as </p>
+   \[
+   M_{2^{j}}(f)=\sqrt{ |w_{2^{j}}^{1,d}(f)|^{2}+|w_{2^{j}}^{2,d}(f)|^{2}}
+   \]
+   
+   <p>at each point \((x,y)\). An example of this Multiscale edge detector is shown below. The treatment of edge detector on this page is incomplete as of now so please see references for proofs and methods to compute Wavelet Transform Modulus Maxima.</p>
+
+   <div align="center">  <img class="picture" width="100%" src="../img/mallatimage.png" />
+		  <br \><p>Lena Image at J=1,2,3,4</p>
+</div>
+   
+   <div align="center">  <img class="picture" width="100%" src="../img/mallathorizontal.png" />
+		  <br \><p>Horizontal Edges at J=1,2,3,4</p>
+</div>
+   
+
+
+ <div align="center">  <img class="picture" width="100%" src="../img/mallatvertical.png" />
+		  <br \><p>Vertical Edges at J=1,2,3,4</p>
+</div>
+
+   <div align="center">  <img class="picture" width="100%" src="../img/mallatmodulus.png" />
+		  <br \><p>Image Modulus at J=1,2,3,4</p>
+</div>
+  
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+		 <a href="http://www-ljk.imag.fr/SMS/software/GaussianWaveDen/">Gaussian Wavelet Denoising  Library</a><br >
+		 <a href="http://www-stat.stanford.edu/~donoho/reports.html">David Donoho's webpage</a><br \>
+		  <div id="box">
+		      <h3>References</h3>
+	      </div>
+		  <a href="http://www.stat.ucla.edu/~cocteau/papers/pdf/lmdl.pdf">Hansen, Yu::Wavelet thrsholding[pdf Page]</a><br \>
+		  <a href="http://www-stat.stanford.edu/~donoho/reports.html">Donoho::Denoising via soft-thresholding</a><br >
+		<a href="http://www-stat.stanford.edu/~donoho/reports.html">Donoho,Johnstone::Ideal spatial adaptation via wavelet shrinkage</a><br \>
+		<a href="http://mprolab.teipir.gr/profiles/jellin/papers/J5.pdf">Ellinas::Image Denoising using Wavelets[PDF]</a><br \><br \>
+		<a href="http://www.cmap.polytechnique.fr/~mallat/biblio.html">Mallat et al::Singularity detection and processing with wavelets</a><br \>
+		<a href="http://www.cmap.polytechnique.fr/~mallat/biblio.html">Mallat et al::Characterization of signals from multiscale edges</a><br \>
+		<a href="http://users.ices.utexas.edu/~junli/">J. Li::A Wavelet Approach to Edge Detection </a><br \>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

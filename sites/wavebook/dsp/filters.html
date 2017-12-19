@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Filters</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/matlab.html">Wavelets in Matlab</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/fourier.html">Fourier Theory</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+  <div id="main">
+	  <h1> Digital FIR Filters </h1>
+ <p> A digital filter is a system that processes a digital signal. In 1-D the
+  filtering process usually consists of removing or enhancing certain bands
+  of frequency.</p>
+
+    	    <div align="center">  <img class="picture" src="../img/filt.png" />
+		  <br \><p>Digital Filter</p>
+	  </div>
+  
+
+  <p>In the figure above \( h(n) \) is the filter transfer function while
+  \(x(n)\) and \(y(n)\) are input and output signals, respectively.</p>
+   
+  <h3>Finite Impulse Response (FIR) Filters</h3>
+   
+  <p> FIR filters have an impulse response that persists for only a finite 
+    number of samples and it is given by
+    
+    \[
+    h(n)=[h(0),h(1),......,h(N-1)]
+    \]
+    
+    The output response of this filter is given by
+    
+    \[
+    y(n)=\sum_{k=0}^{N-1} x(k)h(n-k)
+    \] 
+    </p>
+      	    <div align="center">  <img class="picture" src="../img/fir.png" />
+		  <br \><p>FIR Filter Block Diagram</p>
+	  </div>
+    
+
+  <h3>Linear Phase FIR filters</h3>
+
+  <p>Frequency response of any digital filter can be expressed in a magnitude-phase form.
+ \[
+ H(\exp j\omega)=\|H(\omega)\|\angle\phi(\omega)
+ \]
+ 
+   A Linear Phase filter is one whose phase \(\omega\) is linear
+   
+   \[
+   \phi(\omega)=A\omega+B
+   \]
+   </p>
+   <p> A Linear Phase filter delays all frequency components equally (group delay)
+     and it is highly desirable in phase-sensitive applications like image processing.
+     Linear phase FIR filters can be easily designed by using symmetric impulse response.
+     Following is a five tap FIR filter with coefficients 
+     \[[-0.125 , 0.250,0.750,0.250,-0.125]\]
+     and its magnitude-phase response.</p>
+       	    <div align="center">  <img class="picture" src="../img/firlpimp.png" />
+		  <br \><p>FIR Impulse Response</p>
+	  </div>
+
+	    	    <div align="center">  <img class="picture" src="../img/firlpmagph.png" />
+		  <br \><p>FIR Magnitude-Phase Response</p>
+	  </div>
+
+
+   
+      </div>
+      <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+		      <p>Hands-On Digital Signal Processing by Fred J Taylor </p>
+	      
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 

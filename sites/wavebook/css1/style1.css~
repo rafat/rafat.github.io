@@ -1,0 +1,87 @@
+/* 
+    Document   : style1
+    Created on : Aug 4, 2010, 5:27:24 AM
+    Author     : USER
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+html {
+    margin: 0;
+    padding: 0;
+
+}
+body {
+    font-family:  Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    line-height: 125%;
+    text-indent: 3em;
+
+}
+div.mathapp{
+        float:left;
+	     font-size:80%;
+	     margin-left: 15%;
+	     width:35%;
+        border: thin dotted blue;
+        background-color: rgb(85%,85%,85%);
+}
+div.resources {
+   float:right;
+   font-size: 80% ;
+   /*background-color: lightblue;*/
+   margin-right:19%;
+   width:30%;
+   background-color: rgb(85%,85%,85%);
+   border: thin dotted blue;	
+}
+ul.list {
+	list-style:none;
+}
+
+div.sidenav {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 80%;
+
+}
+div.sidenav ul {
+    margin-left:0;
+    padding:0
+    list-style:none;
+}
+div.sidenav ul li {
+   /* float:left;
+    background-color:silver;
+    margin-bottom: 2%;
+    margin-left: 1%;
+    padding-left:-1.4%;
+    padding-right:2.4%;
+    text-align: center; */
+     float:left;
+     margin-left:0;
+     list-style:none;
+     display:block;
+     width:10%;
+     background-color:silver;
+     padding-right: 1.5%;
+     padding-left: 1.5%;
+}
+h3 {
+    text-align: left;
+    text-decoration: none;
+}
+a:link{
+	text-decoration: none;
+	color:blue;
+}
+a:visited{
+	color:blue;
+	text-decoration: none;
+}
+
+

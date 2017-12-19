@@ -1,0 +1,46 @@
+---Home
+
+---Wavelets
+-Intro
+-DWT
+-Matlab display etc.
+-MRA
+-2D transform 
+-2d examples images etc.
+-Complex Wavelets
+-Lifting
+
+---Applications
+-Image Processing
+-Communications
+-Seismology
+-Biomedical Engineering
+-Image Compression
+
+---Maths Portion
+-Euclidean/Hilbert
+-Frames and Bases
+-Fourier Theory
+-Approximation Theory
+-Linear vs Non-Linear Approximation
+
+---Signal processing
+-Filters- FIR/IIR
+-Sampling/Interpolation
+-Filterbanks (QMF, 2-channel, M-channel)
+-Iterated FBs
+-Fourier/DFT
+
+Advanced Topics
+-Directional WTs
+-Curvelets, Directionles etc.
+-Monospace 
+-Multiwavelets
+-Meshes
+
+
+
+---Resources
+-Books
+-Software
+-Links

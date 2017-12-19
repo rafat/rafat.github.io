@@ -1,0 +1,130 @@
+/* 
+    Document   : style1
+    Created on : Aug 12, 2010, 5:27:24 AM
+    Author     : Rafat Hussain
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+html {
+
+    margin: 0;
+    padding: 0;
+
+}
+body {
+    font-family:  Verdana,Arial, Helvetica, sans-serif;
+    background-color: rgb(99%,99%,99%);
+    line-height: 125%;
+    text-indent: 0;
+
+}
+dl {
+    float:left;
+	 width:17%;
+	 margin-left:-79%;
+	 height:2%;
+	 
+}
+div#main{
+     
+	     font-size:80%;
+	     float:left;
+	     margin-left: 1%;
+	     width:59%;
+        border: thin dotted blue;
+        background-color: rgb(100%,100%,100%);
+       /* padding: 0 15% 4% 3%;*/
+}
+div#verbatim{
+    font-size:120%;
+    color:#4976FF;
+    background-color:#99cccc;
+    width:80%;
+    border:thin dashed black;
+    margin-left:10%;
+}
+div#side {
+	     font-size:80%;
+	     float:left;
+	     width:20%;
+	     border: thin dotted blue;
+        background-color: rgb(100%,100%,100%);
+        text-align: center;
+}
+div#side #box {
+  color:#4976FF;  
+  background-color: #ddd;
+}
+div#side a:link {
+    text-decoration:underline;
+    color:#4976FF;
+    font-weight:bold;
+}
+div#side a:visited {
+    text-decoration:underline;
+    color:#4976FF;
+    font-weight:bold;
+}
+/*div.resources {
+   float:right;
+   font-size: 80% ;
+   background-color: lightblue;
+   margin-right:24%;
+   width:30%;
+   background-color: rgb(85%,85%,85%);
+   border: thin dotted blue;	
+}*/
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+h3 {
+    text-align: center;
+    text-decoration: underline;
+}
+h4 {
+    text-align: center;
+    text-decoration: underline;
+}
+#img1 {
+	width:60%;
+	height:60%;
+}
+#menu a:link{
+	text-decoration: none;
+	color:#4976FF;
+}
+
+div.picture { display:block;
+margin-left:auto;margin-right:auto;
+font: 11px/1.4em Verdana,Arial, sans-serif; 
+ }
+ 
+
+div.next {
+  float:right;
+  border: thin dotted black;
+
+}
+
+
+#menu a:visited{
+	color:#4976FF;
+	text-decoration: none;
+}
+
+
+
+
+	
+	dl,dd { margin: 0; }
+	dt { background: #ddd; font-size: 15px; padding: 2px; margin: 1px; }
+	dt a { color: #000; text-align:center;}
+	dd a { color: #000; text-align:center;font-size:12px }
+	ul { list-style: none; padding: 2px; }

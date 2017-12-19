@@ -1,0 +1,97 @@
+/* 
+    Document   : style1
+    Created on : Aug 12, 2010, 5:27:24 AM
+    Author     : Rafat Hussain
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+html {
+
+    margin: 0;
+    padding: 0;
+
+}
+body {
+    font-family:  Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    line-height: 125%;
+    text-indent: 0;
+
+}
+dl {
+    float:left;
+	 width:15%;
+	 height:2%;
+	 
+}
+div#main{
+     
+	     font-size:80%;
+	     float:left;
+	     margin-left: 1%;
+	     width:55%;
+        border: thin dotted blue;
+        background-color: rgb(98%,98%,98%);
+       /* padding: 0 15% 4% 3%;*/
+}
+div#side {
+	     font-size:80%;
+	     float:right;
+	     width:21%;
+	     margin: 0 1% 0 -24%;
+	     border: thin dotted blue;
+        background-color: rgb(98%,98%,98%);
+        text-align: center;
+}
+div#side #box {
+  background-color: #eee;
+}
+/*div.resources {
+   float:right;
+   font-size: 80% ;
+   background-color: lightblue;
+   margin-right:24%;
+   width:30%;
+   background-color: rgb(85%,85%,85%);
+   border: thin dotted blue;	
+}*/
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+h3 {
+    text-align: center;
+    text-decoration: underline;
+}
+h4 {
+    text-align: center;
+    text-decoration: underline;
+}
+#img1 {
+	width=60%;
+	height=60%;
+}
+#menu a:link{
+	text-decoration: none;
+	color:black;
+}
+#menu a:visited{
+	color:black;
+	text-decoration: none;
+}
+
+
+
+
+	
+	dl,dd { margin: 0; }
+	dt { background: #eee; font-size: 16px; padding: 5px; margin: 2px; }
+	dt a { color: #000; text-align:center;}
+	dd a { color: #000;text-align:center;font-size:12px }
+	ul { list-style: none; padding: 5px; }

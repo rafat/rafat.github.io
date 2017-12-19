@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Approximation Theory</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	  
+  </dl> 
+      <div id="main">
+	<h1>Approximation Theory</h1>
+
+<p>To motivate the concepts of approximation, consider a subspace \(V_{N}
+\subset H\) and consider a function \(f \in H\). An orthogonal projection of
+\(f\) on \(V_{N}\) is given by \(f_{N}\). Using a set of \(N\)-vector
+biorthogonal basis we can recover the signal \(f_{N}\) in this subspace.</p>
+
+\[
+f_{N}(t)=\sum_{n=0}^{N-1} \lt f,\phi_{n} \gt \widetilde{\phi_{n}}
+\] 
+
+<p>Now the signal constructed using \(N\)-vector biorthogonal basis is usually
+not exactly the same as \(f\). Therefore, we compute the approximation error as
+\(\|f-f_{N}\|\). To give a formal definition of approximation error, consider an
+orthonormal basis \(\{e_{k}\}_{k=0}^{\infty}\) in \(L^2\). The function \(f\)
+can, therefore be fully reconstructed using this basis.</p>
+
+\[
+f=\sum_{k=0}^{\infty} \lt f,e_{k} \gt e_{k}
+\]
+
+ <p>However, if we are using \(N\)-vectors of this orthonormal basis to
+ reconstruct \(f\) then the approximation difference is given by</p>
+ 
+ \[
+ f-f_{N}=\sum_{k=0}^{\infty} \lt f,e_{k} \gt e_{k} - \sum_{k=0}^{N-1} \lt f,e_{k} \gt e_{k}= \sum_{k=N}^{\infty} \lt f,e_{k} \gt e_{k}
+ \]
+ 
+ <p>and the approximation error is</p>
+ 
+ \[
+ e_{N}=\|f-f_{N}\|^{2}= \sum_{k=N}^{\infty} | \lt f,e_{k} \gt |^{2}
+ \]
+ 
+ <p>Few Observations</p>
+ <ul>
+ <li>1. As the value of \(N\) increases, the error decreases.
+ \[
+ \lim_{n \rightarrow \infty} \|f-f_{N}\| = 0
+ \]</li><br \>
+ 
+ <li>2. Since \((e_{N}= \sum_{k=N}^{\infty} | \lt f,e_{k} \gt |^{2}\) , the decay rate of approximation error is proportional to decay rate of \(| \lt f,e_{k} \gt |\) as \(k\) increases.</li><br \>
+ 
+ <li>3. Approximation error depends on the choice of \(N\) basis vectors.</li><br \>
+ </ul>
+ 
+ <h3>Linear Fourier Approximations</h3>
+ 
+ \(e^{i2 \pi mt}\) is an orthonormal basis in \(L^{2}[0,1]\). The signal \(f\) can be approximated using \(N\)-vector Fourier basis as 
+ \[
+ f_{N}(t)=\sum_{m=-\frac{N}{2}}^{m=\frac{N}{2}} \lt f(u),e^{i2 \pi mu} \gt e^{i2 \pi mt}
+ \]
+ 
+ <p>Fourier Approximation error is, therefore, given by</p>
+ 
+ \[
+ e_{f,N}=f(t)-f_{N}(t)=\sum_{m=-\infty}^{m=-\frac{N}{2}} \lt f(u),e^{i2 \pi mu}>e^{i2 \pi mt}+\sum_{m=\frac{N}{2}}^{m=\infty} \lt f(u),e^{i2 \pi mu} \gt e^{i2 \pi mt}
+ \]
+ 
+ <p>It should be noted that linear Fourier approximation has a low frequency
+ bias as the approximate signal \(f_{N}(t)\) is constructed using low frequency
+ components. A signal rich in high frequency components will see substantial
+ degradation if Linear Fourier Approximation is used. </p>
+ 
+ <h3>Wavelet Approximation Error</h3>
+ 
+ <p>Faster the decay of approximation error, fewer basis functions are needed to
+ approximate \(f\). In the case of wavelets, approximation error rate decay
+ depends on the number of low pass filter zeros at \(\omega=\pi\). More zeros
+ equate to smoother wavelets, the faster the expansion coefficients decay to
+ zero.</p>
+ 
+ <p>Consider a multiresolution space \(V_{J}\) where \(V_{J}=V_{0} \oplus W_{0}
+ \oplus W_{1} \oplus .......\oplus W_{J-1} \). The space \(V_{J}\) is spanned by
+ scaling functions \(\phi(t-k)\) and wavelets
+ \(\{\psi(2^{j}t-k)\}_{j=0}^{J-1}\). The projection of \(f\) in this space is
+ given by</p>
+ 
+\[
+f_{N}=\sum_{n} \lt f,\phi_{J,n} \gt \phi_{J,n}
+\]
+or,
+
+\[
+f_{N}=\sum_{n} \lt f,\phi_{0,n} \gt \phi_{0,n}+\sum_{j=0}^{J-1} \lt f,\psi_{j,n} \gt \psi_{j,n}
+\]
+
+
+ <p>Now generalizing this equation over entire \(L^{2}\) space and assuming the
+ smallest scale is \(0\) , we get</p>
+ 
+ \[
+f=\sum_{n} \lt f,\phi_{0,n} \gt \phi_{0,n}+\sum_{j=0}^{\infty} \lt f,\psi_{j,n} \gt \psi_{j,n}
+\]
+
+<p>The approximation difference is, therefore,</p>
+
+\[
+f-f_{N}=\sum_{j=J}^{\infty} \lt f,\psi_{j,n} \gt \psi_{j,n}
+\]
+ <p>and linear approximation error is</p>
+ 
+ \[
+ e_{w,N}=\|f-f_{N}\|^{2}=\sum_{j=J}^{\infty} | \lt f,\psi_{j,n} \gt |^{2}
+ \]
+ 
+ <h3>Linear Approximation Example: Fourier vs Db2 Wavelet</h3>
+ 
+ <p>A \(N=256\) length piecewise regular signal is used in these computations. The matlab script is as follows</p>
+<div id="verbatim">
+	<pre>
+function f=waveapprox
+
+% Linear Fourier and Wavelet Approximations using 100 coefficients out of 256
+f = load_signal('Piece-Regular', 256); % Using this Wavelab function to
+% generate a piecewise signal
+x=f';% Preparing signal for wt.m
+% Fourier Linear Aproximation using 100 coefficients
+figure(1);plot(x),title('Piecewise Regular Signal');
+yf=fft(x);
+yf_shift=fftshift(yf);
+% plot(abs(yf_shift));
+% Signal reconstruction using all coefficients
+% oup_f=ifft(yf);
+% figure(2)
+% plot(real(oup_f));
+
+% Signal Reconstruction using n=100 coefficients
+
+% Linear Fourier Approximation
+n=100;
+N=length(yf_shift);
+yf_appx=[zeros(1,N/2-n/2),yf_shift(N/2-n/2+1:N/2+n/2),zeros(1,N/2-n/2)]
+yf_appx=fftshift(yf_appx);
+oup_f=ifft(yf_appx);
+figure(2)
+plot(real(oup_f));title(' Linear Fourier Approximation 100/256 coeffs');
+
+% Linear Wavelet Approximation
+
+% Signal is decomposed to level-4 and first 100 coefficients are chosen.
+% Using Db2 wavelets
+[lp,hp,lp2,hp2]=wfilters('db2');
+J=4;
+[cA,cD,dcoeff]=wt_test(x,J,lp,hp);
+
+% Choosing 100 coefficients
+% cA-16, dcoeff(4,:)-16, dcoeff(3,:)-32, dcoeff(2,:) - Choose first 36
+% coefficients while all coefficients of dcoeff(1,:) are set to zero.
+ dcoeff(1,:)=zeros(size(dcoeff(1,:)));
+ dcoeff(2,:)=[dcoeff(2,1:36),zeros(1,length(dcoeff(2,:))-36)];
+figure(3)
+yw=iwt_test(cA,dcoeff,J,lp2,hp2);
+plot(yw),title('Linear Wavelet Approximtion 100/256 coeffs');
+coeff2=[cA,dcoeff(4,1:16),dcoeff(3,1:32),dcoeff(2,1:64),dcoeff(1,:)]
+	</pre>
+</div>
+
+<p>Fourier Linear Approximation computation is pretty straightforward. \(256\) point FFT 
+is computed and only first \(100\) coefficients( \(50\) on either side of \(\omega=0\)) corresponding
+to lowest frequencies are retained.We reconstruct the signal (Inverse FFT) using only these 
+\(100\) coefficients while setting the rest equal to zero.</p>
+
+	   	  <div align="center">  <img class="picture" src="../img/appxsig.png" />
+		  <br \><p>N=256 Piecewise Regular Signal</p>
+	  </div> 
+
+ 
+
+<p>The output signal is plotted below.</p>
+
+	   	  <div align="center">  <img class="picture" src="../img/lfa.png" />
+		  <br \><p>100 coefficients Linear Fourier Approximation</p>
+	  </div> 
+
+
+<p>Linear Wavelet Approximation is a bit more involved. Firstly, the input signal
+is decomposed to a scale \(J\).In this demo, \(J\) is \(4\). Then we retain 100 coefficients
+starting from the coarsest scale, ie., we start with approximation and detail coefficients
+at the coarsest scale, then we choose detail coefficients from the next finest scale and
+ so on. In this example, approximation and detail coefficients at the coarsest scale have 
+ \(16\) coefficients each. The next finer scale has \(32\) detail coefficients followed by \(64\) at the
+ following one and so on. Since we are choosing \(100\) coefficients , we retain only 
+ \(36(=100-16-16-32)\). The rest of the coefficients are set to zero and the inverse DWT is
+ computed in order to reconstruct the signal.The output signal is plotted below</p>
+ 
+ 	   	  <div align="center">  <img class="picture" src="../img/lwa.png" />
+		  <br \><p>100 coefficients Linear Wavelet Approximation</p>
+	  </div> 
+ 
+
+  <p>  It can be seen that Wavelet approximation returns a better result with this kind of
+  signal.While linear fourier approximation has a low-frequency bias wavelets tend to capture discontinuities
+  and signal fluctuations at almost every scale which results in better approximation performance.</p>
+
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+		      <a href="../dsp/dft.html">Fourier Transform</a><br \><hr>
+		      <a href="../intro/dwt.html">Discrete Wavelet Transform</a><br \><hr>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+		 	 <a href="http://www.ceremade.dauphine.fr/~peyre/numerical-tour/tours/">Numerical Tour</a><hr>
+
+		 		 <div id="box">
+		      <h3>References</h3>
+				 </div>
+	      <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet Tour of Signal processing</a><br \><hr>
+	      <a href="http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=952805">Vetterli et al::Wavelets, approximation, and compression</a>
+	      <br \><hr>
+			
+	      
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

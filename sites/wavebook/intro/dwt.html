@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Discrete Wavelet Transform</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+	</script> 
+	<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["jsMath2jax.js"]
+  });
+</script>
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+      
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+  <div id="main">
+	  <h1> Discrete Wavelet Transform </h1>
+	      <p>Discrete Wavelet Transform was introduced previously with
+	      translation and dilation steps being uniformly discretized.</p>
+
+   
+    $$\psi_{m,n}(t)=a^{\frac{-m}{2}}\psi(a^{-m}t-n)$$
+
+  
+    <p>To make computations simpler and to ensure perfect or near-perfect 
+   reconstruction, Dyadic Wavelet Transform is utilized. In the dyadic case
+   \(a\) is chosen to be equal to \(2\) which yields the following translation-
+   dilation equation.</p>
+   
+   
+   $$\psi_{j,n}(x)=2^{\frac{-j}{2}}\psi(2^{-j}x-n)$$
+  
+   <p>,where \(j\) gives the level of scale and n gives the translation where \(j,n\in\)\(Z\).
+    As noted previously, wavelet functions \(\psi(t)\) are bandpass so even with dyadic
+    scaling they cannot cover the entire spectrum so low pass scaling functions \(\phi(t)\)
+    are introduced. Therefore, wavelet coefficients of a function over scales \( j_0 \leq j \leq J \) 
+    are then given by </p>
+    
+     
+    <div class="math">Wf= \lt f,\phi_{j_0,n}\gt+\sum_{j=j_0}^{J}\lt f,\psi_{j,n}\gt </div>
+     
+     <p> Let there be functions \(\tilde{\phi_{j_0,n}}\) and \(\tilde{\psi_{j,n}}\) such that
+    function \(f(x)\) can be reconstructed from its wavelet coefficients using following
+    equation </p>
+    
+    
+    <div class="math">f(x)=\sum_{n}\lt f,\phi_{j_0,n}\gt\tilde{\phi_{j_0,n}}(x)+\sum_{n}\sum_{j=j_0}^{J}\lt f,\psi_{j,n}\gt\tilde{\psi_{j,n}}(x)</div>
+     
+     
+    <p>The ease with which dyadic Inverse Discrete Wavelet Transform (IDWT) can be constructed makes it ideal for a number of 
+     signal processing and image processing applications where reconstruction is absolutely critical(eg., Image compression).
+     More on Inverse DWT using filter banks in next few chapters when this topic will be revisited. </p>
+
+     <h3> DWT Implementation</h3>
+
+     <p>DWT is implemented using decimated filter banks and this implementation is a major reason why DWT has
+     become so popular in DSP and other fields. The concepts behind this implementation will be developed over next few sections but we'll start with the implementation here with results displayed using Matlab. </p>
+  
+          	    <div align="center">  <img class="picture" src="../img/iterfb.png" />
+		  <br \><p> Filter Bank Implementation of DWT </p>
+	  </div>
+
+	       	    <div align="center">  <img class="picture" src="../img/iterfb2.png" />
+		  <br \><p>Filter Bank Implementation of IDWT</p>
+	  </div>
+
+	  <p>The figures show DWT and Inverse DWT implementations using iterated and decimated filter banks. Consider DWT, at each stage the signal is convolved with low pass and high pass filters and the result is decimated by \(2\). Decimation is necessary in order to keep the system non-redundant as the number of coefficients will, otherwise, double at every stage. The downside is that decimation introduces shift variance.More on this later. For now, we'll pass a signal through the filter bank shown in the first signal and analyze it at every stage. Let us say that the signal is decomposed through \(4\)-levels of the filter banks. At the fourth stage, we have two sets of coefficients- Approximation coefficients corresponding to low pass filter and Detail coefficients corresponding to high pass filtering. Since the low pass approximation coefficients at stages \(1\) through \(3\) are decomposed we'll only consider the  detail coefficients at these three stages.At every stage, higher frequency components are peeled off the signal and we are left with a smoother version of the original signal. The analysis is shown in figure.</p>
+
+
+	       	    <div align="center">  <img class="picture" width="100%" src="../img/dwtcoeff.png" />
+		  <br \><p>DWT Analysis of a given signal</p>
+	  </div>
+  
+     
+  
+      </div>
+     <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <a href="../math/bases.html">Bases and Frames</a><br \><hr>
+	      <a href="intro.html">Introduction to Wavelets</a><br \><hr>
+	      <a href="mra.html">MultiResolution Analysis</a><br \><hr>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      <a href="httP://www.wavelet.org">Wavelet.org</a><br \>
+	      	      <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      
+	        <a href="http://www.ec-securehost.com/SIAM/CB61.html">Daubechies::Ten lectures on Wavelets</a><br \><hr>
+        <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet tour of Signal processing</a><br \><hr>
+        <a href="http://www-math.mit.edu/~gs/books/wfb.html">Ngyuen,Strang::Wavelets and FilterBanks</a><br \><hr>
+	<a href="http://waveletsandsubbandcoding.org/">Kovacevic,Vetterli::Wavelets and SubBand Coding</a><br \><hr>
+	<a href="http://www.fourierandwavelets.org/">Goyal,Kovacevic,Vetterli::Fourier and Wavelet Signal Processing</a><br \><hr>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

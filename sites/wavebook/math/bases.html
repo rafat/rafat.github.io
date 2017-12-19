@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Bases and Frames</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+      <div id="main">
+	      <h1>Bases and Frames</h1>
+	      <p>A basis is a linearly independent set of vectors that spans a given Hilbert space such that any function in that space can be expanded as a unique combination of these linearly independent vectors.On the other hand, frames are a generalization of bases such that they may be linearly dependent and, therefore, redundant. Formal definitions follow.</p> 
+
+	      <p>Definition of Bases: Consider a set of vectors \(\{e_{k}\}_{k=1}^{\infty}\) in \(H\)</p>
+	      <ul>
+		      <li>1. This set is a basis in \(H\) if for each value of \(f \in H \) there is a set of unique scalars \(c_{k}^{f}\) such that
+\[
+f=\sum_{k=1}^{\infty} c_{k}^{f}e_{k}
+\]</li>
+
+<li>2. The basis \(\{e_{k}\}_{k=1}^{\infty}\) is an <b>orthonormal basis</b> if it is an orthonormal system
+
+\[
+\lt e_{k},e_{j} \gt = \delta_{k,j}
+\]</li>
+</ul>
+
+<h3>Orthonormal Basis properties</h3>
+<ul>
+	<li>1. \(f=\sum_{k=1}^{\infty} \lt f,e_{k} \gt e_{k}\) ,  \(\forall f \in H \)</li><br \>
+
+	<li>2. \(\lt f,g \gt=\sum_{k=1}^{\infty} \lt f,e_{k} \gt \lt e_{k},g \gt\) , \(\forall f,g \in H \)</li><br \>
+
+	<li>3. \(\overline{span}\{e_{k}\}_{k=1}^{\infty}= H\)</li><br \>
+
+	<li>4. \(\sum_{k=1}^{\infty} | \lt f,e_{k} \gt |^{2}= \|f\|^{2}\), \(\forall f \in H \)</li><br \>
+
+	<li>5. If \( \lt f,e_{k} \gt =0\) then \( f = 0\)</li><br \>
+</ul>
+
+<h3>Biorthogonal Bases</h3>
+
+<p>Definition: Sets of vectors \(\{\widetilde{e}_{k}\}_{k=1}^{\infty}\) and \(\{e_{k}\}_{k=1}^{\infty}\) constitute biorthogonal bases in \(H\) if</p>
+<ul>
+	<li>1. \( \forall k,j \in Z\), \( \lt e_{k},\widetilde{e}_{j} \gt =\delta_{k,j}\)</li><br \>
+
+	<li>2. For any \(f \in H\) there exist \( A,B \gt 0\) such that
+
+\[
+A\|f\|^{2} \le \sum_{k}| \lt f,e_{k} \gt |^{2}   \le  B\|f\|^{2}
+\]
+
+\[
+\frac{1}{B}\|f\|^{2} \le \sum_{k}| \lt f,\widetilde{e}_{k} \gt |^{2}   \le  \frac{1}{A}\|f\|^{2}
+\]</li><br \>
+</ul>
+
+<p>Bases that satisfy the above two equations are called Riesz Bases. \( f \in H \) can be expanded as</p>
+
+\[
+f=\sum_{k=1}^{\infty}  \lt f,e_{k} \gt \widetilde{e}_{k} = \sum_{k=1}^{\infty} \lt f,\widetilde{e}_{k} \gt e_{k}
+\]
+
+
+<h4>Limitations of Bases or why we need Frames</h4>
+
+<p>Bases are characterized by their expansion property, ie. any function \(f \in H\) can be expressed as a linear combination of basis vectors \(e_{k}\) that span \(H\). However, it is possible to expand a function \(f \in H\) as a linear combination of another set of vectors \(\phi\) which may not be a basis in \(H\). The representation in this case may be redundant but it may provide additional flexibility which may be a good given specific applications. Another problem with basis is that they may be difficult to construct and a small change in implementing one vector in the basis may destroy the basis so having extra vectors in a redundant expansion may not be such a bad idea. In other applications, as in image compression, we may not want to keep all the coefficients of signal expansion with a set of given vectors so it is quite possible that frames may be able to do the job instead of bases which need more tedious construction.</p>
+
+<h3>Frames</h3>
+
+<p>Definition: Consider a set of vectors \(\{\phi_{k}\}_{k=1}^{\infty} \in H \) and that there exist constants \(A,B \gt 0\). \(\phi_{k}\) is a frame in \(H\) if</p>
+
+\[
+A\|f\|^{2} \le \sum_{k=1}^{\infty} | \lt f,\phi_{k} \gt |^{2}  \le B\|f\|^{2}, \forall f \in H
+\]
+
+<p>If \(A=B\) then the frame is called a Tight Frame.</p>
+
+<p>If vectors \(\{\phi_{k}\}_{k=1}^{\infty} \in H \) are linearly independent then the frame is non-redundant and is called a Riesz Basis.</p>
+
+<p>Let \(\{\phi_{k}\}_{k=1}^{\infty} \in H \) be a frame with frame operator \(S\) and bounds \(A,B\) then following is true</p>
+
+<ul>
+	<li>1. S is bounded, invertible, adjoint and positive.</li><br \>
+
+	<li>2. \(\{S^{-1}\phi_{k}\}_{k=1}^{\infty} \in H \) is a frame with frame operator \(S^{-1}\) and frame bounds \(A^{-1},B^{-1}\).</li><br \>
+
+	<li>3. If \(A,B\) are optimal frame bounds for \(\{\phi_{k}\}_{k=1}^{\infty} \) then \(A^{-1},B^{-1}\) are optimal frame bounds for \(\{S^{-1}\phi_{k}\}_{k=1}^{\infty}\).</li><br \>
+
+	<li>4. \( f=\sum_{k=1}^{\infty} \lt f,S^{-1}\phi_{k} \gt \phi_{k}, \forall f \in H \) and
+
+\( f=\sum_{k=1}^{\infty} \lt f,\phi_{k} \gt S^{-1}\phi_{k}, \forall f \in H \)
+
+Both converge for all \(f \in H\).</li><br \>
+
+<p>Frame Operators and Pseudo-Inverse : Let \(U\) be the frame operator associated with the frame \(\{\phi_{k}\}_{k=1}^{\infty} \in H \) and let \(U: H \rightarrow H \) be bounded with closed range then \(\{U\phi_{k}\}_{k=1}^{\infty}\) is a frame sequence with frame bounds \(A\|U^{\dagger}\|^{-2}\) and \(B\|U\|^{2}\). \(U^{\dagger}\) is known as the pseudo inverse of the frame operator \(U\) and is defined as</p>
+
+\[
+U^{\dagger}=(U^{*}U)^{-1}U^{*}
+\]
+
+<p>where \(U^{*}\) is the adjoint of \(U\). As can be seen from the definition, \(U^{\dagger}\) is the left inverse.</p>
+
+<p><b>Dual Frames:</b> Assume that \(\{\phi_{k}\}_{k=1}^{\infty} \in H \) is an overcomplete frame then there exist frames \(\{\chi_{k}\}_{k=1}^{\infty} \in H \) for which
+\( f=\sum_{k=1}^{\infty} \lt f,\chi_{k} \gt \phi_{k}, \forall f \in H \) . Following holds for dual frames \(\phi_{k}\) and \(\chi_{k}\)</p>
+
+<ul>
+	<li>1. \( f=\sum_{k=1}^{\infty} \lt f,\chi_{k} \gt \phi_{k}, \forall f \in H \)</li> <br \>
+
+	<li>2. \( f=\sum_{k=1}^{\infty} \lt f,\phi_{k} \gt \chi_{k}, \forall f \in H \) </li><br \>
+
+	<li>3. \( \lt f,g \gt =\sum_{k=1}^{\infty} \lt f,\phi_{k}\gt \lt \chi_{k},g \gt, \forall f,g \in H \)</li>
+
+</ul>
+	      
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <a href="hilbert.html">Hilbert Space</a><br \><hr>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      	      <a href="http://en.wikibooks.org/wiki/Functional_Analysis">Functional Analysis Wikibook</a>
+	      <br \><hr>
+	      <a href="http://en.wikipedia.org/wiki/Basis_(linear_algebra)">Basis Wiki Page</a><br \><hr>
+	      <a href="http://en.wikipedia.org/wiki/Frame_of_a_vector_space">Frames Wiki page</a><hr>
+               <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      <a href="http://www.springer.com/birkhauser/mathematics/book/978-0-8176-4295-2">Ole Christensen::An introduction to frames and Riesz bases</a>
+	      <br \><hr>
+	      <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet Tour of Signal processing</a><br \><hr>
+	      <a href="http://www.fourierandwavelets.org/">Goyal et al::Fourier and Wavelet Signal Processing</a>
+	      <br \><hr>
+	      <a href="http://people.math.gatech.edu/~heil/papers/">Christopher Heil::A Basis Theory primer</a><hr>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

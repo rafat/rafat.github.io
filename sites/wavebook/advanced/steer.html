@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Steerable Pyramid</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["jsMath2jax.js"]
+  });
+</script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Image Processing</a></li> 
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	  
+  </dl> 
+  <div id="main">
+	  <h1>Steerable Pyramid</h1>
+
+	  <h3>Theory of Steerable Filters</h3>
+
+	  <p>Steerable Filters are a class of oriented filters that can be expressed as a linear combination of a set of basis filters. As an example, let us consider isotropic Gaussian filter \(G(x,y)\).</p>
+
+\[
+G(x,y)=e^{-(x^{2}+y^{2})}
+\]
+
+<p> First derivative of \(G(x,y)\) is given by \(G_{1}\) and let \(G_{1}^{\theta}\) be the first derivative rotated by an angle \(\theta\) about the origin. In \(x\) direction the angle \(\theta=0^{\circ}\) and in \(y\) direction, \(\theta=90{\circ}\).</p>
+ 
+ \[
+ G_{1}^{0{\circ}} = \frac{\partial G}{\partial x}
+ \]
+ 
+ \[
+ G_{1}^{0{\circ}}=-2x e^{-(x^{2}+y^{2})}
+ \]
+ <p>and</p>
+  
+   \[
+ G_{1}^{90{\circ}} = \frac{\partial G}{\partial y}
+ \]
+ 
+  \[
+ G_{1}^{90{\circ}}=-2y e^{-(x^{2}+y^{2})}
+ \]
+ 
+ <p>In \(2D\) space  \(G_{1}^{0{\circ}}\) and \(G_{1}^{90{\circ}}\) are seen to span the entire space and are the basis filters. An arbitrarily oriented first derivative filter can be expressed as a linear combination of these two filters.</p>
+   
+   \[   
+   G_{1}^{\theta{\circ}}=G_{1}^{0{\circ}} cos(\theta) + G_{1}^{90{\circ}} sin(\theta)
+   \]
+   
+   <p>For \(\theta=30{\circ}\), the three filters can be plotted as below</p>
+
+    <div align="center">  <img class="picture" width="100%"  src="../img/gaussderiv.png" />
+		  <br \><p>Gaussian First Derivative Filters oriented a) in x-direction b) in y-direction and c) at 30{\circ} about the origin </p>
+	  </div>
+
+ 
+	  <p>The first derivative of Gaussian is also an edge detection filter which smooths the \(2D\) signal and then  computes the gradient. Having an oriented version of this filter helps in isolating oriented edges and contours. Convolution of an Image \(I\) with an oriented Gaussian first derivative filter \(G_{1}^{\theta{\circ}}\) can be given by</p>
+
+\[
+I_{o}^{\theta{\circ}}=G_{1}^{\theta{\circ}}* I
+\]
+
+\[
+I_{o}^{\theta{\circ}}=(G_{1}^{0{\circ}}*I) cos(\theta) + (G_{1}^{90{\circ}}*I) sin(\theta)
+\]
+
+<p>or,</p>
+\[
+I_{o}^{\theta{\circ}}= I_{o}^{0{\circ}} cos(\theta) + I_{o}^{90{\circ}} sin(\theta)
+\]
+
+<p>Convolution of a simple symmetric image with different values of \(\theta\) is shown below.</p>
+
+ <div align="center">  <img class="picture" width="100%" src="../img/gaussconv1.png" />
+		  <br \><p>An Image Convolved with oriented Gaussian first derivative filter</p>
+	  </div>
+
+  
+
+	  <p>The same plot with an edge detection( gradient computation) point of view is also shown below.</p>
+
+	  <div align="center">  <img class="picture" width="100%" src="../img/gaussconv.png" />
+		  <br \><p>Edge Detection:Image convolved with oriented Gaussian first derivative filters a) original Image, oriented b) in x-direction, c) in y-direction, d) at 30{\circ}, e) 15{\circ}, f) 60{\circ}</p>
+	  </div>
+ 
+
+	  <h3>Adelson and Freeman Steerability Theorems</h3>
+
+	  <p> Adelson and Freeman proved three theorems in their 1991 paper and these theorems form the basis of Steerable filters and wavelets. A function \(f(x,y)\) steers given the steering condition</p>
+  \[
+  f^{\theta}(x,y)= \sum_{j=1}^{M} k_{j}(\theta) f^{\theta_{j}}(x,y)
+  \]
+  
+  <p>where \(f^{\theta_{j}}(x,y)\) are \(M\) basis functions and \(k_{j}(\theta)\) are steer coefficients for a given orientation \(\theta\). \(f(x,y)\) is usually represented in polar coordinates as \(f(r,\phi)\) where \(r=\sqrt{x^{2}+y^{2}}\) and \(\phi=tan^{-1}(y/x)\).</p>
+  
+  <p><b> Theorem 1 :</b> Steering condition holds if and only if \(k_{j}(\theta)\) are solutions of following equations</p>
+  
+  \[
+  \left(\begin{array}{ccc} 1 \\ e^{i\theta} \\ . \\ . \\ e^{iN \theta} \end{array}\right)=\begin{bmatrix} 1 & 1 & . & 1 \\ e^{i \theta_{1}} & e^{i \theta_{2}} & . & e^{i \theta_{M}} \\ . & . & . & . \\ . & . & . & . \\ e^{iN \theta_{1}} & e^{iN \theta_{2}} & . & e^{iN \theta_{M}} \end{bmatrix} \left(\begin{array}{ccc} k_{1}(\theta) \\ k_{2}(\theta) \\ . \\ . \\ k_{M}(\theta) \end{array}\right)
+  \]
+  
+  <p> The polar coordinate representation of steerable function can be expanded as</p>
+  \[
+  f(r,\phi)=\sum_{n=-N}^{N} a_{n}(r) e^{in \phi}
+  \]
+   
+  
+  <p><b>Theorem 2 :</b> Let \(T\) be the number of positive or negative frequencies for which \(a_{n}(r) \neq 0 \) then the number of basis filters \(M\) must be \( \ge T\).</p>
+  
+  <p>Example- let us consider the first derivative of a Gaussian. It can be written in polar coordinates form as</p>
+  
+  \[
+  G_{1}^{0 {\circ}}= -2r cos(\phi) e^{-r^{2}}
+  \]
+  
+  <p>or,</p>
+  \[
+  G_{1}^{0 {\circ}}= -r e^{-r^{2}} ( e^{i \phi} + e^{-i \phi})
+  \]
+  
+  <p>which means that \(T=2\) and we need \( M \geq 2\) basis filters to steer the Gaussian first derivative.</p>
+  
+  <p><b>Theorem 3 :</b> Let \(f(x,y)=W(r) P_{N}(x,y)\), where \(W(r)\) is any windowing function and \(P_{N}(x,y)\) is an \(Nth\) order polynomial in \(x\) and \(y\) then \(f(x,y)\) can be steered in any direction using \(2N+1\) basis filters.</p>
+  
+  
+  <h3> Steerable Pyramid</h3>
+  
+  <p>Steerable filter banks are implemented as pyramids. The implementation is done in two steps- the radial element( Pyramid) and the angular implementation which adds orientation to band pass filters. The implementation is in some ways similar to wavelet filter bank implementation with certain key differences. We resolve pyramid into a pass band and a cascade of low pass band filters with subsampling present only in the low pass cascade. The overall pyramid response is low pass. A single-stage Steerable Pyramid is shown below.</p>
+
+   <div align="center">  <img class="picture" width="100%" src="../img/steerpyr.png" />
+		  <br \><p>Single Stage Steerable Pyramid</p>
+	  </div>
+
+
+	  <p>\(B(\omega)\) is the band pass filter while \(L_{1}(\omega)\) and \(L_{0}(\omega)\) are the low pass filters. Band Pass filters are not subsampled in order to prevent aliasing while low pass filters are designed so that there is no aliasing (\( |L(\omega)| = 0, \forall \omega \geq \pi/2 \) ). Angular frequency computations depend on number of orientation bands needed. For example, if four orientation bands are used then the band pass filter is designed and rotated in four directions and each orientation \(\theta\) is essentially a weighted linear combination of four basis filters. A two-stage Pyramid implementation is shown below. Decomposition is carried out on the low pass branch. It is assumed that system response ( which is low pass) is actually \(L_{0}(\omega)\) which helps in designing low pass and band pass filters.</p>
+
+	   <div align="center">  <img class="picture" width="100%" src="../img/steerpyr2.png" />
+		  <br \><p>Two-Stage Steerable Pyramid</p>
+	  </div>
+
+
+	  <h3>Steerable Pyramid Implementation</h3>
+
+	  <p> As an example of Steerable Pyramid implementation we will consider the pyramid shown below which was proposed by Simoncelli, et al. An image is pre-processed by filtering it along two channels - one high pass and the other low pass. The decomposition is done on the low pass image by further filtering it with oriented band pass filters. The number of band pass filters \(k\) is determined by the desired number of orientation bands. The cascaded pyramid structure is implemented by replacing \(\oplus\) in the low pass band by the entire structure contained within the dotted lines.</p>
+
+	  <div align="center">  <img class="picture" width="100%" src="../img/steerpyrimp.png" />
+		  <br \><p>Steerable Pyramid Implementation</p>
+	  </div> 
+
+
+	  <h6>Filter Constraints</h6>
+
+	  <p><b>1. Perfect Reconstruction</b></p>
+
+	  <p>a) Unity System Response Amplitude</p>
+
+\[
+|L_{0}(\overline{\omega})|^{2}[|L_{1}(\overline{\omega})|^{2}+\sum_{n=0}^{k-1} |B_{n}(\overline{\omega})|^{2}]+|H_{0}(\overline{\omega})|^{2}=1
+\]
+
+<p>b) Cascaded Structure must preserve the prefect reconstruction condition and the low pass nature of the lower branch which gives us following equation</p>
+
+\[
+|L_{1}(\overline{\omega/2})|^{2}[|L_{1}(\overline{\omega})|^{2}+\sum_{n=0}^{k-1} |B_{n}(\overline{\omega})|^{2}]=|L_{1}(\overline{\omega/2})|^{2}
+\]
+
+<p>c) As mentioned earlier, low pass filters must be designed to prevent aliasing as we use subsampling in low pass branch.</p>
+
+\[
+L_{0}(\overline{\omega})=0
+\]
+<p>for all \(|\omega| \gt \pi/2 \) </p>
+  
+<p><b>2. Orientation :</b> Oriented Band Pass filters are given by</p>
+\[
+B_{n}(\overline{\omega})=B(\overline{\omega})(-j cos(\theta-\theta_{n}))^{k-1}
+\]
+
+<p>where \(\theta= \arg(\overline{\omega})\) , \(\theta_{n}= \frac{\pi n}{k}\) and \(n={0,1,...,k-1}\)</p>
+
+<h3>Filters Design</h3>
+
+<p>\(2D\) Filters for Steerable Pyramid can designed using techniques proposed by Karasaridis et al. and then by Castleman et al.\(L_{1}(\overline{\omega})\) is designed as a \(1D\) raised cosine filter. We then choose \(L_{0}(\overline{\omega})=L_{1}(\overline{\omega/2})\) and band pass filters are obtained using perfect reconstruction and angular constraints. These filters are converted to \(2D\) filters using McClellan Frequency Transformation outlined in Jae Lim's book. The chosen filters are all \(17 X 17 \) filters.</p>
+
+<h3>Steerable Pyramid for \(k=2\) Orientations</h3>
+
+<p>As can be seen from the Steerable Pyramid figure we need \(5\) filters to implement \(k=2\) orientation pyramid. The first two filters \(L_{0}\) and \(H_{0}\) are shown below. These two are also known as pre-processing filters(or post-processing filters at the reconstruction stage).</p>
+
+ <div align="center">  <img class="picture" width="100%" src="../img/steerfilthl.png" />
+		  <br \><p>Steerable Pyramid Pre-Processing Filters \(L_{0}\) and \(H_{0}\)</p>
+	  </div>
+
+
+	  <p> The next set of filters are known also known as Iterated Filters as they are part of the cascaded stage of the Pyramid. We add \(N\) cascades for \(N\) level of decomposition. \(N=3\) is used in this example. The three filters are the low pass filter \(L_{1}\) and two oriented band pass filters \(B_{0}\) and \(B_{1}\).</p>
+
+	   <div align="center">  <img class="picture" width="100%" src="../img/steerfiltbp.png" />
+		  <br \><p>Steerable Pyramid Iterated Filters \(B_{0}\), \(B_{1}\) and \(L_{1}\)</p>
+	  </div>
+ 
+
+
+	  <p>This pyramid is used to decompose ``Zoneplate'' image at three scales. It can be seen that the images at all three scales are oriented in two different directions.</p>
+
+	   <div align="center">  <img class="picture" width="100%" src="../img/zp2.png" />
+		  <br \><p>\(3\) Level \(k=2\) Oriented Decomposition of Zoneplate Image</p>
+	  </div>
+  
+
+
+	  <h3>Steerable Pyramid for \(k=3\) Orientations</h3>
+
+	  <p>The only difference between \(k=2\) and \(k=3\) or ,indeed, any other value of \(k\) is that we have to design \(k\) different abnd pass filters alongside two low pass and one high pass filters. Pre-processing and post-processing filters \(L_{0}\) and \(H_{0}\) filters are designed the same way and are shown below.</p>
+
+ <div align="center">  <img class="picture" width="100%" src="../img/steerfilthl3.png" />
+		  <br \><p>Steerable Pyramid Pre-Processing Filters \(L_{0}\) and \(H_{0}\)</p>
+	  </div>
+ 
+
+	  <p>As mentioned earlier, we will have to design three oriented band pass filters in this case. These three filters along with the iterated low pass filter \(L_{0}\) are shown in the following figure</p>
+
+ <div align="center">  <img class="picture" width="100%" src="../img/steerfiltbp3.png" />
+		  <br \><p>Steerable Pyramid Iterated Filters \(B_{0}\), \(B_{1}\), \(B_{2}\) and \(L_{1}\)</p>
+	  </div>
+           
+
+	  <p>This Steerable Pyramid is used to decompose ``Zoneplate'' image at three scales. It can be seen that the images at all three scales are oriented in three different directions.</p>
+  
+     <div align="center">  <img class="picture" width="100%" src="../img/zp3.png" />
+		  <br \><p>\(3\) Level \(k=3\) Oriented Decomposition of Zoneplate Image</p>
+	  </div>
+
+
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

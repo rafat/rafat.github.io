@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Communications</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Image Processing</a></li> 
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+      <div id="main">
+	      
+	      <h1> Wavelet Applications in Communications</h1>
+	      
+	      <h3> OFDM Review</h3>
+
+	      <p>OFDM or Orthogonal Frequency Division Multiplexing is a data transmission scheme that consists of transmitting a high rate data stream by using lower rate data streams modulated over orthogonal subcarriers. An OFDM transmission system consists of a   constellation encoder followed by a serial-to-parallel converter and a FFT encoder which modulates the signal symbols over an orthogonal bank of subcarriers. The stream is then converted from parallel to serial and a redundant guard band is added to prevent Inter Symbol Interference caused by multipath propagation delays in wireless and other channels.Block diagrams of OFDM Transmitters and Receivers are shown in figures below.</p>
+
+	     
+	     <div align="center">  <img class="picture" src="../img/ofdmtx.png" />
+		  <br \><p>OFDM Transmitter</p>
+	  </div>
+
+	      <div align="center">  <img class="picture" src="../img/ofdmrx.png" />
+		  <br \><p>OFDM Receiver</p>
+	  </div>
+
+
+
+	  <h3>OFDM Stages</h3>
+
+	  <p>On the transmitter side, an OFDM system consists of</p>
+	  <ul>
+
+		  <li>1. FEC Encoder : Wireless channels suffer from frequency selective fading which may result in wiping out of certain subcarriers.However, using a combination of error correction coding and interleaving, we can counteract some of the effects of this fading phenomena.IEEE 802.11a standard utilizes convolution coding in conjunction with Viterbi decoders at the receiver.
+		  Convolutional Encoders with encoders with bit rates of \(1/2\),\(2/3\) and \(3/4\) are typically used.</li><br \>
+
+		  <li>2. Constellation Encoders: In OFDM systems PSK (Phase Shift Keying) and QAM ( Quadrature Amplitude Modulation) are used to convert FEC-encoded bits to symbols.</li><br \> 
+
+		  <li>3. Serial to parallel Converters: are used to convert serial stream into \(N\) parallel streams.</li><br \>
+
+		  <li>4. IFFT : IFFT stage is used to modulate these parallel streams into \(N\) orthogonal channels.</li><br \>
+
+		  <li>5. Serial to Parallel Converters : convert these parallel streams to serial stream.</li><br \>
+
+		  <li>6. Cyclic Extension: One of the biggest issues with wireless channel happens to be multipath delay. Any transmitted signal is prone to get reflected by obstacles in the path( buildings, trees etc.) and instead of receiver getting one copy of the signal, it may receive multiple delayed copies. OFDM uses lower rate subcarriers which helps with delay spread but in order to almost completely remove multipath delay cyclical extension is used in which last \(L\) subcarriers out of \(N\) [\(L \lt N\)]  are folded back in front of each OFDM symbol in order to form one large \(L+N\) orthogonal symbol. As long as channel multipath delay is smaller than \(L\) all delayed copies of the given symbol continue to be orthogonal to the original symbol and they don't overlap with the next symbol and are , therefore cancelled out.</li><br \>
+	  </ul>
+
+		  <p>OFDM receiver stages are essentially the reverse of the transmission stages as can be seen from the block diagram.
+
+		  Mathematically,an OFDM signal \(x[k]\) can be seen as a series of ,say, \(s\) OFDM symbols each consisting of \(M\) orthogonally modulated waveforms.</p>
+
+\[
+x[k]=\sum_{s}\sum_{m=0}^{M-1} a_{s,m} \phi_{m}[k-sM]
+\]
+<p>where \(\phi_{m}[k]\) are \(M\) orthogonal waveforms such that</p>
+ 
+ \[
+ \lt\phi_{m}[k],\phi_{n}[k] \gt = \delta[m-n]
+ \]
+ 
+ <p>In the case of regular OFDM case, we use FFTs to implement orthogonal channels, such that</p>
+ 
+ \[
+ \phi_{m}[k]=e^{\frac{j2\pi mkT}{M}}
+ \]
+
+ <h3>Advantages of OFDM</h3>
+ <ul>
+
+	 <li>1. Orthogonality between subcarriers allows channel overlap and , thus, more efficient use of Bandwidth.</li><br \>
+
+	 <li>2. Orthogonality also helps in eliminating ICI ( Inter Channel Interference) as subcarriers are orthogonal to each other.</li><br \>
+
+	 <li>3. ISI ( Inter Symbol Interference) can be dealt with by using a guard band or cyclic prefix. Essentially, we don't use all subcarriers for data transmission. Instead some of the subcarriers use redundant information as  data of the last \(L\) subcarriers is folded back and added as a prefix to the symbol. This cyclic prefix is discarded at the receiver and helps guard against things such as multipath effects where delayed copies of same symbol is received because of inefficiencies in wireless channel.</li><br \>
+
+	 <li>4. Use of lower-rate multiple subcarriers helps in dealing with noise by using proper channel coding. A loss of handful of subcarriers due to noise can be compensated by using error correction codes while noise in high rate single carrier systems may result in loss of entire stream. </li><br \>
+
+	 </ul>
+
+
+
+	 <h3>Wavelet Packet Modulation</h3>
+
+	 <p>Since OFDM channels consist of \(M\) orthogonal subcarriers, we need \(M\)-band wavelet implementation if we want to substitute wavelet transform in place of DFTs. We achieve this using wavelet packet decomposition and reconstruction.  Instead of dyadic iterations across only low pass filters, we dyadically decompose both high and low pass filters at every stage as show in the figure for two level wavelet packet tree decomposition.</p>
+
+
+	      <div align="center">  <img class="picture" src="../img/dwpt.png" />
+		  <br \><p>Wavelet Two-level Packet Decomposition</p>
+	  </div>
+
+
+	  <p>This wavelet tree is equivalent to one stage \(4\) band wavelet filter bank as shown in the figure.</p>
+
+	       <div align="center">  <img class="picture" src="../img/dwpte.png" />
+		  <br \><p>WaveletTwo-level Packet Decomposition Equivalent Representation</p>
+	  </div>
+
+
+	  <p>Decomposition is done similarly for any \(M=2^{n}\). The filters of \(M\)-band wavelet transform are obtained using noble identities and iterated filter bank properties. 
+They are respectively \(H(z)H(z^{2})\),\(H(z)G(z^{2})\),\(G(z)H(z^{2})\) and 
+\(G(z)G(z^{2})\). Wavelets corresponding to these
+filters are computed using scaling and wavelet dilation equations.
+The dilation equations are different in the \(M\)-band case:</p>
+\[
+\phi(t):= \sum_{k} hh(k)\phi(Mt-k)
+ \]
+ 
+ <p> and</p>
+ 
+  \[
+ \psi(t):= \sum_{k} gg(k)\phi(Mt-k)
+ \]
+ 
+ <p>where \(hh\) and \(gg\) filters are iterated bandpass filters obtained using noble identities.</p>
+
+ <p>An \(M\)-band wavelet system has one scaling function corresponding to the low pass filter and \(M-1\) wavelet functions corresponding to each bandpass filter. For a three level wavelet packet decomposition using Daubechies orthonormal wavelets, the filters and \(M = 8\) wavelets[unnormalized] are plotted in Matlab.</p>
+
+      <div align="center">  <img class="picture" width="100%" src="../img/dwptmag.png" />
+		  <br \><p>8 Filters for 3-level Packet Decomposition Tree</p>
+	  </div>
+
+     <div align="center">  <img class="picture" width="100%" src="../img/dwptwaves.png" />
+		  <br \><p>Wavelets for 3-level Packet decomposition Tree</p>
+	  </div>
+
+
+
+	  <h3>Wavelet Packet Based OFDM systems</h3>
+
+	  <p>Wavelet based OFDM systems are similar to regular OFDM with orthogonal subcarriers generated by iterated wavelet filter banks instead of DFTs but there are several crucial differences. Wavelet-OFDMs have better ISI and ICI performance. In addition, wavelet symbols generated are longer than DFT symbols. The length of iterated wavelet filters for \(M\) level wavelet packet decomposition is equal to \((M-1)(L-1)+1\) where \(L\) is the length of original filters. For higher level decompositions, iterated wavelet filters are significantly larger which results in longer subcarrier symbols. Guard Band or cyclical prefix is usually not needed in Wavelet OFDM case. A block diagram of Wavelet OFDM can, therefore, be given by </p>
+
+      <div align="center">  <img class="picture" src="../img/wofdmtx.png" />
+		  <br \><p>Wavelet-OFDM Transmitter</p>
+	  </div>
+
+	      <div align="center">  <img class="picture" src="../img/wofdmrx.png" />
+		  <br \><p>Wavelet-OFDM Receiver</p>
+	  </div>
+
+	  <h4>Some properties of W-OFDM are following</h4>
+	  <ul>
+
+		  <li>1. Wavelet-OFDM has much better power spectrum characteristics than conventional OFDM which results in significantly improved
+		  band-rejection properties.For more on this , visit HD-PLC alliance webpage at <a href="http://www.hd-plc.org/modules/about/original.html">HD-PLC Alliance</a>
+.</li><br \>
+
+<li>2. Variable symbol lengths and variable subcarrier bandwidths  can be easily obtained if we choose not to fully decompose each branch. This can be especially useful in wireless channels and other channels that suffer from frequency selective fading as it makes sense to not transfer same amount of data on each subcarrier.</li><br \>
+
+<li>3. Guard bands (cyclical prefix) is usually not needed (the WOFDM symbols are longer and they overlap which makes an effective cyclical prefix impossible to implement anyway) which results in more efficient data transmission. Additionally, pilot symbols( used for estimation and synchronization purposes in conventional OFDM) are not needed which adds to bandwidth efficiency.</li><br \>
+
+<li>4. WOFDM is entirely dependent on scaling filter (all other filters can be obtained from it) so it is much more flexible and we can design the system according to our needs by choosing the correct type of orthogonal filters.</li><br \>
+
+<li>5.  It has been shown that wavelet systems give better Inter Carrier Interference (ICI) and Inter Symbol Interference (ISI) performance thanks to a  more robust orthogonal construction.</li><br \>
+</ul>
+
+<p> For more information on WOFDM applications in industry, most prominently in wireless and powerline communications, see HD-PLC Panasonic, IEEE 802.11 standard resources( for information about conventional OFDM) and IEEE P1901 powerline standards/working groups websites. Check the references.</p>
+
+
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+		      		      <a href="../dsp/dft.html">Fourier Transform</a><br \><hr>
+		      <a href="../intro/dwt.html">Discrete Wavelet Transform</a><br \><hr>
+		      <a href="../intro/fb.html">Filter Banks and Wavelets</a><br \><hr>
+		      <a href="../dsp/iterfb.html">Iterated Filter Banks</a><br \><hr>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+		 	 <a href="http://www.ieee802.org/11/">IEEE 802.11:WLAN</a><br \><hr>
+			 <a href="http://grouper.ieee.org/groups/1901/">IEEE P1901:Powerline Group</a><br \><hr>
+			 <a href="http://www.hd-plc.org/">HD-PLC Alliance</a><br \><hr>
+			 <a href="http://wcsp.eng.usf.edu/OFDM_links.html">USF OFDM and MC-CDMA Page</a><br \><hr>
+			 <a href="http://code.google.com/p/jwave/">WPT Java Implementation</a><br \><hr>
+			 <a href="http://de.wikipedia.org/wiki/Wavelet-Paket-Transformation"> Wavelet Paket Transformation [German]</a><br \><hr>
+
+		 		 <div id="box">
+		      <h3>References</h3>
+				 </div>
+	      <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet Tour of Signal processing</a><br \><hr>
+	      <a href="http://www.ieee802.org/11/">IEEE 802.11a-1999 Standard</a><br \><hr>
+	      <a href="http://www.ieee802.org/16/tg3/contrib/802163c-01_12.pdf">RM Wavelet Based (WOFDM) PHY Proposal for 802.16.3, Rev.0.0</a><br \><hr>
+	      <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.85.2618">Jamin, Mahonen::Wavelet Packet Modulation for Wireless Communications</a><br \><hr>
+	      <a href="http://www.create.ucsb.edu/ATON/01.01/OFDM.pdf">A.L.Intini :: Orthogonal Frequency Division Multiplexing for Wireless Networks</a><br \><hr>
+	      <a href="http://portal.acm.org/citation.cfm?id=171594">Vaidyanathan::Multirate Systems and Filter Banks</a><br \><hr>
+	      <a href="http://www.cscjournals.org/csc/manuscript/Journals/SPIJ/volume4/Issue2/SPIJ-75.pdf">Fisal, Hosseini ,Syed-Yosef::Wavelet Packet based Multicarrier Modulation for Cognitive
+UWB Systems</a><br \><hr>
+	      <a href="http://ieeexplore.ieee.org/Xplore/login.jsp?url=http://ieeexplore.ieee.org/iel5/4492759/4510387/04510421.pdf%3Farnumber%3D4510421&authDecision=-203">Galli, Koga, Kodama :: Advanced signal processing for PLCs: Wavelet-OFDM</a><br \><hr>
+	      <a href="http://www.ieee802.org/11/">Weimin Yang, Guangguo Bi, Yum, T.-S.P.::A Multirate Wireless Transmission System Using Wavelet Packet
+Modulation</a><br \><hr>
+
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

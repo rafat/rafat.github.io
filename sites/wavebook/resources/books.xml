@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : books.xml
+    Created on : August 6, 2010, 8:43 AM
+    Author     : USER
+    Description:
+        Purpose of the document follows.
+-->
+
+<tenbooks>
+    <book >
+        <title> A Wavelet Tour of Signal Processing, 3rd edition </title>
+        <author>Stephane Mallat</author>
+        <link>http://www.cmap.polytechnique.fr/~mallat/book.html</link>
+        <comment></comment>
+    </book>
+     <book >
+        <title>Wavelets and FilterBanks </title>
+        <author>Truong Nguyen, Gilbert Strang</author>
+        <link>http://www-math.mit.edu/~gs/books/wfb.html</link>
+        <comment></comment>
+    </book>
+    <book >
+        <title >Wavelets and SubBand Coding</title>
+        <author>Martin Vetterli, Jelena Kovačević</author>
+        <link>http://waveletsandsubbandcoding.org</link>
+        <comment></comment>
+    </book>
+    <book >
+        <title >Ten Lectures on Wavelets</title>
+        <author>Ingrid Daubechies</author>
+        <link>http://www.ec-securehost.com/SIAM/CB61.html</link>
+        <comment></comment>
+    </book>
+    <book >
+        <title >Digital Signal Processing using Matlab and Wavelets</title>
+        <author>Michael Weeks</author>
+        <link>http://carmaux.cs.gsu.edu/DSP_Using_Matlab_and_Wavelets.html</link>
+        <comment></comment>
+    </book>
+    <book >
+        <title >Fourier and Wavelet Signal Processing</title>
+        <author>Vivek Goyal,Martin Vetterli, Jelena Kovačević</author>
+        <link>http://www.fourierandwavelets.org/</link>
+        <comment></comment>
+    </book>
+    <book >
+        <title >Multirate Systems and Filter Banks </title>
+        <author>PP Vaidyanathan</author>
+        <link>http://portal.acm.org/citation.cfm?id=171594</link>
+        <comment></comment>
+    </book>
+    <book>
+        <title>An introduction to frames and Riesz bases</title>
+        <author>Ole Christensen</author>
+        <link>http://www.springer.com/birkhauser/mathematics/book/978-0-8176-4295-2</link>
+        <comment></comment>
+    </book>
+    
+</tenbooks>

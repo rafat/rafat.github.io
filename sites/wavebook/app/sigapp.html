@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Signal Processing Application</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li> 
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+      <div id="main">
+<h1> Wavelet Applications in Signal processing</h1>
+
+<h3>Sharp Transition/ Discontinuities Detection </h3>
+
+<p>Wavelets are short duration mathematical functions that can be dilated and translated along a given signal
+and thus have the capability to analyze a signal at different scales. This makes them ideally suited for detecting
+short duration rapid variations in the signal in the form of discontinuities and singularities.</p>
+
+<p>Discontinuities can be detected using either continuous or discrete wavelet
+transforms. Example using continuous and discrete transforms utilizing db2
+wavelet follows.</p>
+
+<div align="center">  <img class="picture" src="../img/appxsig.png" />
+		  <br \><p>N=256 Piecewise regulat Signal</p>
+</div>
+
+<div align="center">  <img class="picture" src="../img/cwtdisp.png" />
+		  <br \><p>Continuous Wavelet Transform of Signal Using Db2 Wavelet </p>
+</div>
+
+
+<p>First, let us consider continuous transform. In this example 64 scale levels
+are utilized. Since scales are inversely proportional to frequency, the scales
+at the lowest end of the figure correspond to highest frequencies and
+vice-versa.The lighter colors correspond to higher coefficients. We see high
+coefficients value near sharp transitions and the effect is much more pronounced
+at lower scales (higher frequencies) as these high frequencies match with sharp
+transitions. The inner product between scaled/dilated wavelet and a portion of
+signal yields the largest coefficients where the signal has similar spectral
+components as the wavelet. Coefficients are calculated as following</p>
+
+\[
+    C_{a,b}= \lt f,\psi_{a,b} \gt =\int_{-\infty}^\infty\!f(t)\frac{1}{\sqrt{a}}\psi^*(\frac{t-b}{a})\,dt
+\]
+
+  <p>The mother wavelet (Db2) in this case is scaled and for that scale value it
+  is translated along the signal length and coefficients are calculated at every
+  point.The scale value is changed and the process is repeated. The practical
+  implementation involves using discrete values of translation steps and scaling
+  values but large enough step values approximates CWT well.</p>
+
+<p>A \(3D\) display of coefficients distribution along scales and signal length
+is shown in the figure below. It can be seen that at higher frequencies CWT does
+a very good job of isolating sharp transitions.</p>
+
+<div align="center">  <img class="picture" src="../img/cwtdispmesh.png" />
+		  <br \><p>Continuous Wavelet Transform of signal using Db2 wavelet(3D view)</p>
+</div>
+
+<div align="center">  <img class="picture" src="../img/undecifb.png" />
+		  <br \><p>Undecimated Filter Bank</p>
+</div>
+
+
+<div align="center">  <img class="picture" width="100%" src="../img/dwtdisp.png" />
+		  <br \><p>4-level Discrete Wavelet Transform of signal using Db2 wavelet</p>
+</div>
+
+
+<p>Discrete Wavelet Transform is computed a little differently considering we
+use filter banks and dyadic scale values but it still does a good job of
+isolating sharp transitions. We usually use undecimated filter banks in
+determining presence and location of discontinuities/transitions as coefficients
+storage for signal reconstruction is not a crucial issue. We get detail
+coefficients after convolving with high pass filters and approximation
+coefficients after filtering with low pass filters. If we are resolving the
+signal to \(J=4\) scales, we have one approximation set of coefficients at 4th scale
+while four sets of detail coefficients. In the DWT display of signal,
+approximation and detail coefficients we move from coarser scales down to finer
+scales (higher frequencies). As can be seen from the figures, sharp transitions
+are isolated best at the highest frequencies.</p>
+
+<h3>Signal Denoising</h3>
+
+ <p>DWT is implemented by iterating along the low pass channel of designed
+ filter banks and we take out high frequency components at every stage. This
+ kind of set-up is specially useful when dealing with noise as it usually
+ consists of higher frequency components. In the following figures, an example
+ of denoising is shown. The signal is a doppler with frequencies decreasing in
+ time. DWT filters out higher frequencies from the signal in every successive
+ stage. After \(4\) stages of filtering we have an approximation of the original
+ signal. It is seen that DWT does a good job with lower frequencies while higher
+ frequencies of the signal (at the beginning of the signal) get chopped down
+ along with the noise. DWT performs substantially better with smoother
+ noise-contaminated signals.</p>
+ 
+<div align="center">  <img class="picture" src="../img/doppler.png" />
+		  <br \><p>Doppler Signal</p>
+</div>
+
+
+<div align="center">  <img class="picture" src="../img/noisy.png" />
+		  <br \><p>Doppler Signal with AWGN</p>
+</div>
+
+
+<div align="center">  <img class="picture" width="100%"  src="../img/dwtdisp2.png" />
+		  <br \><p>4-level of Discrete Wavelet Transform of Noisy Signal using Db2 wavelet</p>
+</div>
+
+
+<div align="center">  <img class="picture" src="../img/denoised.png" />
+		  <br \><p>Denoised signal</p>
+</div>
+
+
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

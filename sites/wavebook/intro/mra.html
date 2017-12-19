@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Multiresolution Analysis</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+  <div id="main">
+	  <h1>Multiresolution Analysis</h1>
+Mother Wavelet \(\psi(t)\) is an orthonormal wavelet if its translates and
+dilates are orthonormal under the inner product.
+\[
+\lt\psi_{j,k},\psi_{l,m}\gt=\int_{-\infty}^{\infty}\psi_{j,k}(t)\psi_{l,m}^\ast(t)dt = \delta_{j,l}\delta_{k,m}
+\]
+    where \(j,k,l,m\in\)\(Z\) and \(\delta\) is the Kronecker delta function.
+Such a wavelet system is self-dual,ie., for a given function \(f(x)\) 
+
+<div class="math">
+	f(x)=\sum_{j}\sum_{k}\lt f,\psi_{j,k}\gt\psi_{j,k}(x)
+</div>
+ 
+<p>The idea of Multiresolution is to decompose a signal \(f(t)\in L^2(R)\) such that
+ orthogonal projections of \(f(t)\) given by \(f_j\) ``live'' in the space \(V_j\).\(V_j\)
+  and \(W_j\) are complementary subspaces with \(W_j\) being the difference between 
+  \(V_j\) and \(V_{j+1}\).</p>
+  \[
+  V_{j+1}=V_j\oplus W_j
+  \]
+  
+  <p> Multiresolution approximation, as defined by Mallat and Meyer,
+  has the following properties.</p>
+
+  <p>1. \(V_{j} \subset V_{j+1}\)  A function in subspace \(j\) is in all
+the finer subspaces. In other words, if we know a signal
+\(f_{j}(t)\) at subspace \(V_{j}\), we can obtain ts coarse approximation
+using MRA. Think of a signal being decomposed using an iterated chain of
+complementary low pass and high pass filters. At every step we obtain a
+low pass and high pass version of the signal from the previous step. However,
+the low pass signal in step two is contained in the signal from the step one.</p>
+
+
+<p>2. \(f(t) \in V_{0} \Leftrightarrow f(t-k) \in V_{0}\) This is the translation 
+(shift) invariant property of the subspace. A signal in a given subspace , if translated
+by \( k \in Z \) is still in that subspace. This property is valid for all
+subspaces.</p>
+
+<p>3. \(f(t) \in V_{j} \Leftrightarrow f(2t) \in V_{j+1}\) This is the scale invariant
+property of the Multiresolution analysis. In frequency domain terms, \( f(2t) \)
+contains \(2X\) highest frequency compared to that contained in \(f(t)\). Using 
+iterated filter bank example with a low pass filter that halves the frequencies in
+every step, it becomes clear that moving back one step in each step of the filter
+chain doubles the highest frequency content.</p>
+
+  <div align="center">  <img class="picture"  src="../img/mra.png" />
+	  <br \><p>Multiresolution Analysis</p></div>
+
+<p>4. \(\bigcap_{j \rightarrow {-\infty}} V_{j}=\{0\}\) As we move to lower subspaces,
+the space occupied by \(V_{j}\) shrinks until it becomes nearly zero.</p>
+
+<p>5.\(\bigcup_{j \rightarrow {\infty}} V_{j}=L^2(R)\) Union of all subspaces as 
+\(j \rightarrow {\infty}\) encompasses the whole \(L^2(R)\) space.</p>
+
+<h3>Dilation Equation</h3>
+ 
+<p>Let \(f_{0}(t)\) and \(f_{1}(t)\) be the projections of signal \(f(t)\) associated
+ with subspaces \(V_{0}\) and \( V_{1}\) respectively. The difference of these two 
+ projections ``lives'' in the complementary Wavelet space \(W_{0}\).</p>
+ 
+ <p>According to 1, \(V_{0} \subset V_{1}\). Let \(\phi(t)\) and \(\psi(t)\) be
+ the scaling and wavelet functions associated with subspaces \(V_{0}\) and \(W_{0}\).
+ It follows from 1 that \(\phi(t)\) is contained in \(V_{1}\) and can be expressed
+ in terms of \(\phi(2t)\).</p>
+ 
+ \[
+ \phi(t)=2^\frac{1}{2}\sum_{k} h(k)\phi(2t-k)
+ \]
+ 
+ <p>The term \(2^\frac{1}{2}\) comes from the definition of basis function at scale
+   \(j=1\). The equation above is known as the dilation equation and forms the bridge 
+   between wavelets and filterbanks. \(h(k)\) corresponds to the low pass filter that
+   is associated with the scaling function. If \(g(k)\) is the complementary high pass
+   filter in this orthogonal filterbank then the Wavelet equation can be expressed as</p>
+   
+   
+ \[
+ \psi(t)=2^\frac{1}{2}\sum_{k} g(k)\phi(2t-k)
+ \]
+   
+ <p>The wavelet equation written above follows from the fact that \(W_{0}\) also nests
+   inside \(V_{1}\) and can be obtained by using the similar process as used in the
+   scaling function case.</p>
+   
+   <h3>Wavelet Transform Algorithm</h3>
+   
+   <p>Again from 1, \(\psi_{j,k}(t)\) and \(\phi_{j,k}(t)\) can be represented by \(\phi_{j+1,k(t)}\).
+   Let \(S_{j,k}\) and \(W_{j,k}\) be scaling and wavelet coefficients at scale \(j\) for a given
+   signal \(f(t)\).</p>
+   
+   \[
+   S_{j,k}=\int_{-\infty}^{\infty} f(t) \phi_{j,k}(t)dt
+   \]
+   
+   \[
+   W_{j,k}=\int_{-\infty}^{\infty} f(t) \psi_{j,k}(t)dt
+   \]
+   
+   <p>Using MRA properties,
+   
+   \[
+   \sum S_{j+1,k} \phi_{j+1,k}(t) = \sum W_{j,k} \psi_{j,k}(t) + \sum S_{j,k} \phi_{j,k}(t)
+   \]
+   
+      as signal projection \( f_{j+1}(t)=f_{j}(t)+\Delta f_{j}(t) \) where \(\Delta f_{j}(t) \)
+   is the signal projection in the wavelet space. We shift dilation and wavelet equations
+   by v and generalize to scale j.</p>
+    
+ \[
+ \phi(2^{j}t-v)=2^\frac{1}{2}\sum_{k} h(k)\phi(2^{j+1}t-2v-k)
+ \]
+ 
+ \[
+ \psi(2^{j}t-v)=2^\frac{1}{2}\sum_{k} g(k)\phi(2^{j+1}t-2v-k)
+ \]
+ <p>Substituting \(l=2v+k\) and integrating by multiplying both 
+ equations by \(f(t)\) gives</p>
+    
+    \[
+ \int_{-\infty}^{\infty} f(t) \phi_{j,v}dt=2^\frac{1}{2}\sum_{k} h(l-2v) \int_{-\infty}^{\infty} f(t) \phi_{j+1,l}(t) dt
+ \]
+ 
+ \[
+ \int_{-\infty}^{\infty} f(t) \psi_{j,v}dt=2^\frac{1}{2}\sum_{k} g(l-2v) \int_{-\infty}^{\infty} f(t) \phi_{j+1,l}(t) dt
+ \]
+    
+ <p>Using values of \(S_{j,k}\) and \(W_{j,k}\) from above yields</p>
+  
+ \[
+   S_{j,v} = 2^\frac{1}{2}\sum_{k} h(l-2v) S_{j+1,l}
+ \]
+ 
+ \[
+   W_{j,v} = 2^\frac{1}{2}\sum_{k} g(l-2v) S_{j+1,l}
+ \]
+   
+ <p>where \(h(l-2v)\) and \(g(l-2v)\) can be thought of as time-reversed and
+    decimated by 2 low pass and high pass filters. This is the fast wavelet
+    transform algorithm. </p>
+
+<a align="center"> <img src="../img/fwt.png" alt="image" id="img1" /></a>    
+
+
+<p>The Inverse Fast Wavelet transform is simply inverse of the FWT and can be
+  easily shown using same equations. More on Filterbanks and Wavelets will be
+  covered in next chapter.</p>
+    
+
+  
+      </div>
+      <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <a href="../math/bases.html">Bases and Frames</a><br \><hr>
+	      <a href="dwt.html">Discrete Wavelet Transform</a><br \><hr>
+	      <a href="fb.html">Filter Banks</a><br \><hr>
+	      <a href="intro.html">Introduction to Wavelets</a><br \><hr>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      <a href="httP://www.wavelet.org">Wavelet.org</a><br \>
+	      	      <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      
+	        <a href="http://www.ec-securehost.com/SIAM/CB61.html">Daubechies::Ten lectures on Wavelets</a><br \><hr>
+        <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet tour of Signal processing</a><br \><hr>
+        <a href="http://www-math.mit.edu/~gs/books/wfb.html">Ngyuen,Strang::Wavelets and FilterBanks</a><br \><hr>
+	<a href="http://waveletsandsubbandcoding.org/">Kovacevic,Vetterli::Wavelets and SubBand Coding</a><br \><hr>
+	<a href="http://www.fourierandwavelets.org/">Goyal,Kovacevic,Vetterli::Fourier and Wavelet Signal Processing</a><br \><hr>
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Complex Wavelet Transform</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+</script> 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li>  
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li> 
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	   
+  </dl> 
+      <div id="main">
+	      <h1>Complex Wavelet transform</h1>
+	      <h3>Motivation for Complex Wavelet Transform</h3>
+
+	      <p>Discrete Wavelet Transform has many advantages over Fourier Transform with main advantage that it can do localized analysis but
+	      there are other areas where DWT lags behind Fourier Transform. Shift Variance is one of those areas. Fourier Transform is shift invariant which is a desirable property but the use of downsampling makes DWT prone to shift variance as can be seen in the figure below. An impulse loacted at \(n=51\) results in a different response than one located at \(n=80\) with responses being computed at level one of decomposition with a Db8 wavelet DWT filter bank. Not only the two wavelet coefficients are different, the second set of coefficients contain nearly \(20\%\) more energy than the first .Keep in mind that DWT can be made nearly shift invariant by removing downsamplers but it makes DWT ``significantly'' redundant.</p>
+
+	       <div align="center">  <img class="picture" width="100%" src="../img/dwtshift.png" />
+		  <br \><p>DWT Shift Variance Demonstration</p>
+	  </div>
+
+	  <p> Directionality is another issue with regular DWT. As seen with 2D DWT, it is only good in horizontal and vertical direction. While DWT can isolate diagonals with the High-High band it cannot distinguish between signal elements aligned at \(45^{\circ}\) and \(135^{\circ}\).</p>
+
+	  <p>Some other issues with real-valued DWT are absence of any phase information and aliasing that may be present because of quantization errors etc. which may not allow perfect reconstruction of signal.</p>
+
+	  <h3>Hilbert Transform and Analytic Signal</h3>
+
+\[
+F(\omega)=\int_{-\infty}^{\infty} f(t) e^{-j\omega t} d \omega
+\]
+
+
+<p>Fourier Transform consists of two 90\degree out of phase sine and cosine terms. It can represented as </p>
+  \[
+  e^{-j\omega t}=cos(\omega t)+j sin(\omega t)
+  \]
+  
+  <p> In order to develop complex wavelets that are analogous to Fourier Transform, it is important to take a look at Analytic signals and Hilbert Transform.</p>
+  
+  <p>An Analytic signal \(x_{a}(t)\) is defined as </p>
+ \[
+ x_{a}(t)=g(t)+j\widehat{g}(t)
+ \]
+ <p>where \(g(t)\) is a real valued signal while \(\widehat{g}(t)\) is the \(90^{\circ}\) out of phase version of \(g(t)\).
+ We use Hilbert transform to generate \(\widehat{g}(t)\). Hilbert transform of a signal \(g(t)\) is given by</p>
+  
+  \[
+   \widehat{g}(t)=H(g(t))=\frac{1}{\pi} \int_{-\infty}^{\infty} \frac{g(t)}{t-\tau} d \tau
+   \]
+   
+   <p> Taking Fourier Transform, we get</p>
+   \[
+   \widehat{G}(\omega)= -j Sgn(\omega) G(\omega)
+   \]
+   
+   <p>where 
+    \[
+    sgn(\omega)=1 , \omega \gt 0
+    \]
+    \[
+    sgn(\omega)=-1, \omega \lt 0
+    \]</p>
+    <p>Since \(x_{a}(t)\) is a complex signal, its magnitude and angle are given by
+
+\[
+\|x_{a}(t)\|=\sqrt{g(t)^{2}+\widehat{g}(t)^2}
+\]
+
+\[
+\angle x_{a}(t)= tan^{-1} \left[\frac{\widehat{g}(t)}{g(t)}\right]
+\]</p>
+
+<p>Another very important property of analytic signal is that it only exists for positive frequencies. </p>
+ \[
+ X_{a}(\omega)=(1+ Sgn(\omega)) G(\omega)
+ \]
+ \[
+ X_{a}(\omega)= 2G(\omega), \omega \gt 0
+ \]
+ \[
+ X_{a}(\omega)= G(\omega), \omega = 0
+ \]
+ \[
+ X_{a}(\omega)= 0,     \omega \lt 0
+ \]
+ 
+ <p>This helps reduce bandwidth use by the signal and reduces aliasing.</p>
+  
+ <h3>Complex Valued Wavelet Coefficients</h3>
+  
+ <p>Let \(\psi_{A}(t)\) be the analytic wavelet and let \(\psi_{R}(t)\) and \(\psi_{I}(t)\) be its real and imaginary terms where</p>
+  \(\psi_{I}(t)=H(\psi_{R}(t))\).
+  \[
+  \psi_{A}(t)=\psi_{R}(t)+j \psi_{I}(t)
+  \]
+  
+  <p>The wavelet coefficients at level \(j\) can be given by</p>
+  
+  \[
+  W_{a}(j,n)=W_{r}(j,n)+j W_{i}(j,n)
+  \]
+  <p> The magnitude and angles are, therefore,</p>
+   
+   \[
+   \|W_{a}(j,n)\|=\sqrt{W_{r}(j,n)^{2}+W_{i}(j,n)^{2}}
+   \]
+   \[
+   \angle W_{a}(j,n)= tan^{-1} \left[\frac{W_{i}(j,n)}{W_{r}(j,n)}\right]
+   \]
+   
+   <p>As can be seen, the wavelet coefficients( as well as scaling coefficients) are complex but, like Fourier transform, they can be used to analyze complex as well as real signals. Complex wavelets can be implemented with filter banks but ,in this case, the implementation will involve two filter banks , with one corresponding to the real wavelet while the other corresponding to complex. Compared to decimated DWT this Dual-Tree Complex wavelet Transform is redundant.</p>
+   <h3>Dual-Tree Complex Wavelet Transform</h3>
+
+   <p>As mentioned,the idea is to have two sets of analysis and synthesis filter banks in quadrature with each other.</p>
+
+   	       <div align="center">  <img class="picture" width="100%" src="../img/citerfb.png" />
+		  <br \><p>Complex DWT Analysis Bank</p>
+	  </div>
+
+	  	       <div align="center">  <img class="picture" width="100%" src="../img/citerfb2.png" />
+		  <br \><p>Complex DWT Synthesis Bank</p>
+	  </div>
+ 
+
+
+	  <p>On the analysis side, filters \(h_{1a}\),\(h_{1b}\),\(g_{1a}\) and \(g_{1b}\) are all real filters but they are designed so that \(h_{1a}\) and \(g_{1a}\) are in quadrature. Same is true for high pass filters \(h_{1b}\) and \(g_{1b}\). Let \(\psi_{a}(t)\) and \(\psi_{b}(t)\) be the wavelets associated with the two branches then they need to be designed so that</p>
+
+\[
+\psi_{b}(t)=H[\psi_{a}(t)]
+\]
+
+<p>This is in addition to the perfect reconstruction conditions the filter banks have to fulfill. The additional Hilbert Transform means that normal DWT implementations (eg., Daubechies's construction) won't work and filters need to be designed from scratch.</p>
+  
+<h3>Hilbert Transform condition</h3>
+  
+<p>Using dilation equations, the scaling function and wavelet for top branch (real) can be written as</p>
+  
+  \[
+   \phi_{a}(t)=2 \sum_{n} h_{1a}(n) \phi(2t-n)
+   \]
+   
+     \[
+   \psi_{a}(t)=2 \sum_{n} g_{1a}(n) \phi(2t-n)
+   \]
+
+   <p>Assuming that these two filters are orthonormal, the high pass filter can be expressed as alternating flipped version of low pass filter.</p>
+
+\[
+g_{1a}(n)=(-1)^{n} h_{1a}(d-n)
+\]
+
+<p>Furthermore, Selesnick showed that if the two low pass filters in the analysis filter bank are half sample shifted version of other, the wavelet functions obtained by iterating the related high pass filters will be Hilbert transform pair. In other words,</p>
+
+\[
+h_{1b}(n) \approx h_{1a}(n-0.5) \Rightarrow  \psi_{b}(t) \approx H[\psi_{a}(t)]
+\]
+<p>In Fourier Domain, it translates to a difference of \(0.5 \omega\) while the magnitudes of two filters are equal.
+A true half-sample shifted system isn't practically realizable so \(\psi_{b}(t)\) and \(\psi_{a}(t)\) are only approximately realizable.</p>
+  
+<h3> Filter Design Methods</h3>
+<ul>
+	<li>1. Linear Phase Biorthogonal Filters: Low pass filter \(h_{1a}(n)\) is chosen to be even length \(N\) symmetric filter while the other low pass filter(complex branch) \(h_{1b}(n)\)is chosen to be odd length \(N-1\) symmetric filter. It is seen that the phase difference between the two filters is \(-0.5N\omega-(-0.5(N-1)\omega)= -0.5\omega\) which satisfies the half sample-shifted phase condition but magnitude isn't necessarily equal. We can however design filters so that the magnitudes of two low pass filters are roughly equal.</li>
+  
+	<li>2. Q-Shift Design: Using quarter-shift method, the low pass filters are related as following
+  \[
+  h_{1b}(n)=h_{1a}(N-1-n)
+  \]</li>
+  
+  
+  <p>where \(h_{1a}(n)\) filter length \(N\) is even. As can be see that this low pass filter configuration has both filters having same magnitude but they don't automatically satisfy the half sample-shifted phase condition. Fourier domain frequency response of \(H_{1b}(\omega)\) can be written as</p>
+  
+  \[
+  H_{1b}(\omega)=H_{1a}^{*}(\omega) e^{-j(N-1)\omega}
+  \]
+  
+  <p> which corresponds to following phase response</p>
+  
+  \[
+  \angle H_{1b}(\omega)= - \angle H_{1a}(\omega) -(N-1) \omega
+  \] 
+  
+  <p> Since the two filters are supposed to satisfy the half sample-shifted condition</p>
+   
+     \[
+  \angle H_{1b}(\omega) \approx  \angle H_{1a}(\omega) -0.5 \omega
+  \]  
+  
+  <p> Solving for \(H_{1a}(\omega)\), we get</p>
+  
+  \[
+   \angle H_{1a}(\omega) \approx -0.5(N-1)\omega +0.25 \omega
+   \]
+   
+   <p>Two observations:</p>
+   <ul>
+   
+	   <li>i.  Low Pass Filter \(H_{1a}(\omega)\) is approximately symmetric.</li>
+   
+	   <li>ii.  There is a quarter-shift element( It is shifted by 0.25 from the natural symmetric point) present that makes the equation not fully symmetric.</li>
+	   </ul>
+   
+	   <p>The analytic wavelets in this case have real and imaginary values that are time reversed version of each other.Since the filters are even and almost symmetric, orthonormal solutions are possible unlike in the first case.</p>
+    
+	   <li>3. Selesnick's Method: In his 2002 paper, Selesnick suggested following design for the two low pass filters.
+    \[
+    H_{1a}(z)=F(z)D(z)
+    \]
+    \[
+    H_{1b}(z)=F(z)z^{-L}D(z^{-1})
+    \]
+    
+     where \(D(z)\) is chosen such that the half sample shifted condition is satisfied.
+     
+     \[
+     H_{1b}(z)=H_{1a}(z) \frac{z^{-L}D(z^{-1})}{D(z)}
+     \]
+      
+      Observe that
+      
+      \[
+      A(z)=\frac{z^{-L}D(z^{-1})}{D(z)}
+      \]
+      is an all pass filter which makes the magnitudes of \(H_{1a}(z)\) and \(H_{1b}(z)\) equal. \(A(z)\) needs to be designed so that the two low pass filters are half sample shifted. For more on these filters and their implementations, see the references(Resources).</li>
+      </ul>
+	      
+  
+      </div>
+      <div id="side">
+	      	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+		      <a href="../math/bases.html">Bases and Frames</a><br \><hr>
+	      <a href="dwt.html">Discrete Wavelet Transform</a><br \><hr>
+	      <a href="intro.html">Introduction to Wavelets</a><br \><hr>
+	      <a href="mra.html">MultiResolution Analysis</a><br \><hr>
+		 <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      <a href="http://taco.poly.edu/selesi/pubs/index.html">Ivan Selesnick's publications</a>
+	      <br \><hr>
+	      <a href="http://taco.poly.edu/WaveletSoftware/">Selesnick's Software Page</a>
+	      <br \><hr>
+	      <a href="http://www-sigproc.eng.cam.ac.uk/~ngk/">N G Kingsbury's Page</a><hr>
+	      		 <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      <a href="http://taco.poly.edu/WaveletSoftware/">Selesnick et al.,Dual-Tree Complex Wavelet transform Tutorial</a>
+	      <br \> <br \><hr>
+	      <a href="http://www-sigproc.eng.cam.ac.uk/~ngk/">Kingsbury,The dual-tree complex wavelet transform: a new technique for shift invariance and directional filters</a>
+	      <br \> <br \><hr>
+	      <a href="http://taco.poly.edu/selesi/pubs/index.html">I. W. Selesnick. The design of approximate Hilbert transform pairs of wavelet bases. </a>
+	      <br \> <br \><hr>
+	      <a href="http://www.commsp.ee.ic.ac.uk/~pancham/publications.html">Shukla,Complex wavelet transforms and their applications. </a>
+	      <br \> <br \><hr>
+	      <a href="http://www-sigproc.eng.cam.ac.uk/~ngk/">Kingsbury,Image Processing with Complex Wavelets</a>
+	      <br \> <br ><hr>
+	      <a href="http://www-sigproc.eng.cam.ac.uk/~ngk/">Kingsbury, Shift invariant properties of the Dual-Tree Complex Wavelet Transform</a><hr>
+
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
+

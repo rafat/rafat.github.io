@@ -1,0 +1,64 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+<NOSCRIPT>
+    <DIV STYLE="color:#CC0000; text-align:center">
+      <B>Warning: <A HREF="http://www.math.union.edu/locate/jsMath">jsMath</A>
+      requires JavaScript to process the mathematics on this page.<BR>
+      If your browser supports JavaScript, be sure it is enabled.</B>
+    </DIV>
+    <HR>
+    </NOSCRIPT>
+	  
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+	  	  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+      <div class="main">
+          <p>Wavelets are normalized,finite, short-duration, zero mean functions.
+          
+  $$\int_{-\infty}^\infty\psi(t)\,dt=0$$
+
+          
+  \(\psi(t)\) is also known as Mother wavelet as it can be dilated and translated
+  to yield Child wavelets. Function to be analyzed is then processed with these
+  Children  wavelets to yield wavelet coefficients.An example of a wavelet function
+  is shown below. It is a Daubechies2 wavelet generated using Matlab.</p>
+
+      <img src="../img/db2wave.png" alt="image" align="center"></img>
+
+      <p> The Children wavelets are given by \(\psi_{k,s}(t)\) where the mother wavelet
+   is scaled by s and translated by k.
+   
+   $$\psi_{k,s}(t)=\frac{1}{\sqrt{s}}\psi(\frac{t-k}{s})$$
+   
+   The Wavelet Transform Wf of a function f(t) is computed by taking the inner
+   product of function f(t) with the translated and dilated versions of mother
+   wavelet.</p>
+
+   <div class="math">Wf=<f,\psi_{k,s}>=\int_{-\infty}^\infty\!f(t)\frac{1}{\sqrt{s}}\psi^*(\frac{t-k}{s})\,dt</div>
+
+   
+      <p>For small values of s, \(\psi_{k,s}\) will be of shorter duration and higher
+  frequency. For large value of s, \(\psi_{k,s}\) it will be more spread out in
+  time and will consist of low frequencies. The fact that wavelet functions are
+  bandpass functions ensures that we cannot cover the entire frequency spectrum
+  just with the wavelet functions.To solve this problem, scaling functions \(\phi(t)\)
+  are introduced. They are complement of wavelet functions and correspond to low
+  pass filter in signal processing terms.</p>
+  <a align="center"> <img src="../img/db2scal.png" alt="image"/></a>
+
+       <p>Wavelet Transform, so defined, happens to be computationally unwieldy as
+  translations and dilations can take any value. A better approach is to
+  discretize translation and dilation steps. Mathematically, let \(s=a^{m}\)
+  and \(k=a^{m}n\) where m and n are integers.</p>
+
+  $$\psi_{m,n}(t)=a^{\frac{-m}{2}}\psi(a^{-m}t-n)$$
+  
+      </div>
+  </body>
+</html>

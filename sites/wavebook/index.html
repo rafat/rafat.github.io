@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Wavelets</title> 
+	<link rel="stylesheet" type="text/css"
+	href="css1/style3.css">
+	<script src="js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+	</script> 
+
+</head> 
+<body> 
+      <div id="header" align="center">
+       <img alt="Wavelet"  src="img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+	
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="index.html">Home Page</a></li>				
+		<li><a href="intro/intro.html">Introduction</a></li> 
+		<li><a href="intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="intro/fb.html">Filter Banks and Wavelets</a></li> 	
+        <li><a href="intro/fb2.html">Filter Design for Wavelets</a></li> 		
+		<li><a href="intro/2d.html">2-D Transform</a></li> 
+		<li><a href="intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="math/bases.html">Bases and Frames</a></li>
+		<li><a href="math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="dsp/filters.html">Filters</a></li> 
+		<li><a href="dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="app/sigapp.html">Signal Processing</a></li> 
+		<li><a href="app/image.html">Image Processing</a></li> 
+		<li><a href="app/comm.html">Communications</a></li> 
+		<li><a href="app/seism.html">Seismology</a></li> 
+		<li><a href="app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="advanced/mesh.html">Meshes</a></li> 
+		<li><a href="advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 	  
+  </dl> 
+      <div id="main">
+        <div align="left">  <img class="picture" width="100%" src="img/3dgausswave.png" />
+	  </div> 
+
+  
+      </div>
+      <div id="side">
+		      <div id="box">
+		              <div align="left">  <img class="picture" width="100%" src="img/post1.png" />
+			      </div>
+			       </div>
+			       <p>This website uses jsMath, a javascript package for equation rendering.Additionally, you may want to download TeX fonts
+			       for better display of equations. If java script is disabled on your browser ,the material on this website is also available
+			       in Book Format. This book can be downloaded from
+			       <a href="downloads/wavebook.html">here.</a> </p>
+                               <hr>
+			       <p>For Matlab and Octave codes, go to <a href="downloads/mfiles.html">download</a> page.</p>
+			       <hr>
+			       <p><a href="downloads/download.html">DOWNLOADS</a></p>
+
+	     
+      </div>
+
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+

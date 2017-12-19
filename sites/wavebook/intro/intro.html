@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"> 
+<head> 
+	<title>Introduction</title> 
+	<link rel="stylesheet" type="text/css"
+	href="../css1/style3.css">
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+		 extensions: ["jsMath2jax.js"]
+	   });
+	 </script>
+	<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+	<script src="../js/jquery.js"></script> 
+	<script> 
+	$(document).ready(function(){
+		$("dd:not(:first)").hide();
+		$("dt a").click(function(){
+			$("dd:visible").slideUp("slow");
+			$(this).parent().next().slideDown("slow");
+			return false;
+		});
+	});
+	</script> 
+
+</head> 
+<body> 
+<div id="header" align="center">
+       <img alt="Wavelet"  src="../img/wave1.jpg" width="360" height="60" />
+      </div>
+<dl id="menu"> 
+	<dt><a href="">Wavelets</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../index.html">Home Page</a></li>		
+		<li><a href="../intro/intro.html">Introduction</a></li> 
+		<li><a href="../intro/dwt.html">Discrete Wavelet Transform</a></li> 
+		<li><a href="../intro/mra.html">Multi Resolution Analysis</a></li>
+		<li><a href="../intro/fb.html">Filter Banks and Wavelets</a></li> 
+		<li><a href="../intro/fb2.html">Filter Design for Wavelets</a></li>		
+		<li><a href="../intro/2d.html">2-D Transform</a></li>  
+		<li><a href="../intro/complex.html">Complex Wavelet Transform</a></li> 
+                                                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Mathematics</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../math/hilbert.html">Hilbert Space</a></li> 
+		<li><a href="../math/bases.html">Bases and Frames</a></li> 
+		<li><a href="../math/apprx.html">Approximation Theory</a></li> 
+		<li><a href="../math/nla.html">NonLinear Approximation</a></li> 
+                                                                		
+	</ul> 
+	</dd> 
+	<dt><a href="">Signal Processing</a></dt> 
+	<dd> 
+	<ul> 
+		<li><a href="../dsp/sampl.html">Sampling Theory</a></li>
+		<li><a href="../dsp/filters.html">Filters</a></li> 
+		<li><a href="../dsp/fb.html">FilterBanks</a></li> 
+		<li><a href="../dsp/iterfb.html">Iterated FilterBanks</a></li> 
+		<li><a href="../dsp/dft.html">Fourier Transform</a></li> 
+                                                	        			
+	</ul> 
+	</dd> 
+	<dt><a href="">Wavelet Applications</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../app/sigapp.html">Signal Processing</a></li>
+		<li><a href="../app/image.html">Image Processing</a></li> 
+		<li><a href="../app/comm.html">Communications</a></li> 
+		<li><a href="../app/seism.html">Seismology</a></li> 
+		<li><a href="../app/bme.html">BioMedical Engineering</a></li> 
+		<li><a href="../app/comp.html">Image Compression</a></li> 
+        </ul>
+	</dd>	  
+	<dt><a href="">Advanced Topics</a></dt>
+	<dd>
+	<ul>
+		<li><a href="../advanced/dirwt.html">Directional WT</a></li>
+		<li><a href="../advanced/steer.html">Steerable Pyramid</a></li> 
+		<li><a href="../advanced/multwav.html">MultiWavelets</a></li> 
+		<li><a href="../advanced/mesh.html">Meshes</a></li> 
+		<li><a href="../advanced/mono.html">Monogenic WT</a></li> 
+		<li><a href="../advanced/more.html">More</a></li> 
+         </ul>
+	 </dd>	 
+  </dl> 
+  <div id="main">
+	  <h1>Wavelets: A Short Introduction</h1>
+          
+    <p>Wavelets are normalized,finite, short-duration, zero mean functions.
+          
+  $$\int_{-\infty}^\infty\psi(t)\,dt=0$$
+
+          
+  \(\psi(t)\) is also known as Mother wavelet as it can be dilated and translated
+  to yield Child wavelets. Function to be analyzed is then processed with these
+  Children  wavelets to yield wavelet coefficients.An example of a wavelet function
+  is shown below. It is a Daubechies2 wavelet generated using Matlab.</p>
+
+  <div align="center">  <img class="picture" src="../img/db2wave.png" />
+	  <br \><p>Db2 Wavelet</p></div>
+
+      <p> The Children wavelets are given by \(\psi_{k,s}(t)\) where the mother wavelet
+   is scaled by s and translated by k.
+   
+   $$\psi_{k,s}(t)=\frac{1}{\sqrt{s}}\psi(\frac{t-k}{s})$$
+   
+   The Wavelet Transform Wf of a function f(t) is computed by taking the inner
+   product of function f(t) with the translated and dilated versions of mother
+   wavelet.</p>
+
+   <div class="math">Wf=<f,\psi_{k,s}>=\int_{-\infty}^\infty\!f(t)\frac{1}{\sqrt{s}}\psi^*(\frac{t-k}{s})\,dt</div>
+
+   
+      <p>For small values of s, \(\psi_{k,s}\) will be of shorter duration and higher
+  frequency. For large value of s, \(\psi_{k,s}\) it will be more spread out in
+  time and will consist of low frequencies. The fact that wavelet functions are
+  bandpass functions ensures that we cannot cover the entire frequency spectrum
+  just with the wavelet functions.To solve this problem, scaling functions \(\phi(t)\)
+  are introduced. They are complement of wavelet functions and correspond to low
+  pass filter in signal processing terms.</p>
+
+    <div align="center">  <img class="picture" src="../img/db2scal.png" />
+	  <br \><p>Db2 Scaling Function</p></div>
+
+  <p> Below is an example of Daubechies2 wavelet [blue] being scaled by \(a=1/2\).The scale
+  \(a\) is inversely proportional to frequency. Small scale values [ \(0 < a < 1\) ]
+  correspond to high frequencies while large scale values [ \( a > 1 \) ] to low
+  frequencies. The second figure shows the same mother wavelet[blue] being shifted by 
+  \(b=20\). </p>
+
+    <div align="center">  <img class="picture" src="../img/db2scaledemo.png" />
+	    <br \><p>Db2 Wavelet Scaling Demo</p></div>
+      <div align="center">  <img class="picture" src="../img/db2shift.png" />
+	  <br \><p>Db2 Wavelet Shift Demo</p></div>
+
+ 
+  
+  
+
+       <p>Wavelet Transform, so defined, happens to be computationally unwieldy as
+  translations and dilations can take any value. A better approach is to
+  discretize translation and dilation steps. Mathematically, let \(s=a^{m}\)
+  and \(k=a^{m}n\) where m and n are integers.</p>
+       
+        $$\psi_{m,n}(t)=a^{\frac{-m}{2}}\psi(a^{-m}t-n)$$
+   
+  <h3>Wavelet Properties</h3>
+  <ul>
+  <li>1. Vanishing Moments: A wavelet of \(n\) vanishing moments is orthogonal to
+  polynomials of degree \(n-1\). All polynomials of degree less than \(n\) will
+  get filtered out when they are processed by wavelet \(\psi(t)\) \[
+  \int_{-\infty}^{\infty} t^{k} \psi(t) dt = 0 , for (0 \le k < n) \]
+  
+  For a given scaling function and wavelet derived from low pass filter
+  \(h(n)\), number of vanishing moments depends solely on number of zeros at
+  \(\omega=\pi\). In other words, its transfer function and its \(n-1\)
+  derivatives in frequency( or \(z\)) domain vanish at \(\omega=\pi\)\((z=-1)\).<li><br >
+  
+  <li>2. Regularity: of a wavelet is related to differentiability of a wavelet in
+  the frequency domain. More regularity corresponds to smoother wavelet and more
+  vanishing moments. Scaling filter is \(N\) regular if it has \(N\) zeros at \(\omega=\pi\).
+  For more on local and global regularity, refer to books by Daubechies and Mallat.<li><br >
+  
+  <li>3. Admissibility condition is given by
+  
+  \[ \int_{-\infty}^{\infty} \frac{|\psi(\omega)|^{2}}{|\omega|} d \omega <
+  \infty \]
+  
+  Wavelets being band pass functions is an implication of admissibility
+  condition.<li><br >
+  
+  <li>4. Compact Support: Wavelets should ideally have compact support. Like other
+  properties, this property too depends on the low pass filter \(h\).<li><br >
+  
+  <li>5. Symmetry: Certain wavelets , eg. biorthogonal wavelets , are designed to be
+  symmetric. These are specially useful in image processing applications.<li><br >
+  
+  <li>6. Orthogonality: With the exception of Haar wavelets, wavelets can't be both
+  symmetric and orthogonal so the choice usually comes down to specific
+  applications and requirements.<li><br >
+
+      </div>
+      <div id="side">
+	      <div id="box">
+		      <h3>Navigation</h3>
+	      </div>
+	      <a href="../math/bases.html">Bases and Frames</a><br \><hr>
+	      <a href="dwt.html">Discrete Wavelet Transform</a><br \><hr>
+	      <a href="mra.html">MultiResolution Analysis</a><br \><hr>
+	      <div id="box">
+		      <h3>Resources</h3>
+	      </div>
+	      <a href="httP://www.wavelet.org">Wavelet.org</a><br \>
+	      	      <div id="box">
+		      <h3>References</h3>
+	      </div>
+	      
+	        <a href="http://www.ec-securehost.com/SIAM/CB61.html">Daubechies::Ten lectures on Wavelets</a><br \><hr>
+        <a href="http://www.cmap.polytechnique.fr/~mallat/book.html">Mallat::A Wavelet tour of Signal processing</a><br \><hr>
+        <a href="http://www-math.mit.edu/~gs/books/wfb.html">Ngyuen,Strang::Wavelets and FilterBanks</a><br \><hr>
+	<a href="http://waveletsandsubbandcoding.org/">Kovacevic,Vetterli::Wavelets and SubBand Coding</a><br \><hr>
+	<a href="http://www.fourierandwavelets.org/">Goyal,Kovacevic,Vetterli::Fourier and Wavelet Signal Processing</a><br \><hr>
+	
+      </div>
+  <div id="footer">
+  </div>
+</body> 
+</html> 
+
